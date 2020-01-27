@@ -1,0 +1,8 @@
+R은 통계적 방법과 가설 검증을 포함한다.
+
+1. One and Two-sample t-tests
+
+이러한 검증을 하는 함수는
+t.test()이다. 이것은 t-분포에 기초해 가설 검증과 신뢰 구간을 산출한다.
+
+t.test(x, y=NULL, alternative=c("two.sided", "less", "greater"), mu=0, paired=FALSE, var.equal=FALSE, conf.level=0.95)

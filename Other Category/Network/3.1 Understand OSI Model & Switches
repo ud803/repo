@@ -1,0 +1,156 @@
+1. Layers of the OSI Model
+  1) Standards
+    Standards are sets of rules that ensure hardware and software released from different companies work together
+    Examples of org that coordinate standards : ISO, ANSI, IEEE
+
+  2) What are protocols?
+    Clearly defined rules and procedures that allow different manufacturers to create hardware and software that work together at a specific "layer"
+
+  3) OSI model
+    Means of simplifying the complicated functions and processes of networking
+    Created by the ISO
+    Features seven layers, each with its own distinct set of protocols and funcs
+    각 레이어는 독립적이어서 각 레이어의 프로토콜이 다른 레이어에 영향을 미치지 않음
+
+     Layer(7~1)    Protocol Data Unit(PDU)
+7    Application           Data
+6    Presentation          Data
+5    Session               Data
+4    Transport             Segment
+3    Network               Packet
+2    Data Link             Frame
+1    Physical              Bits
+
+    A 컴퓨터에서 B 컴퓨터로 데이터를 전송할 때,
+    A의 7Layer > 1 Layer ------ B의 1Layer > 7 Layer로 변환 과정을 거침
+
+
+2. Communications Subnetwork
+  The communications subnetwork consists of layers 1 through 3
+  1) Layer 1 - Physical
+    Defines the physical and electrical medium for data transfer
+      -Physical layer components: cables, jacks, patch panels, hubs, and MAUs
+      -Physical layer concepts: topologies, analog versus digital/encoding, bit synchronization, baseband versus broadband, multiplexing, serial data transfer
+      -Unit of measurements : Bits
+  2) Layer2 - Data Link
+    Establishes, maintains, and decides how transfer is accomplished over the physical layer
+      -Data Link Layer components: Network Interface cards(NICs) and bridges
+      -Unit of measurements : frames
+  3) Layer3 - Network
+
+  4) Ethernet Standards
+    LAN standard providing a communication method for high speed data exchange among devices
+    Defined Physical and Data Link Layer
+    100BASE-T
+      -100 for 100 Mbps
+      -BASE for baseband
+      -T for twisted-pair cabling(TPC) > copper wire
+
+  5) Media Access Control (MAC) Address
+    Network adapters on an Ethernet network have unique MAC addresses
+    MAC adrs are unique identifiers asigned to network adapters by the manufaturer
+    MAC adrs is six octets in length written in hexadecimal
+    00:2a:db:38:9c:f1 앞 3개 manufacturer, 뒤 3개 device
+
+
+3. Layer 2 Switching
+  1) What is a switch?
+    Switches are central connecting devices
+    They use MAC adrs to establish point-to-point connectons btw devices
+      -In contrast, hubs broadcast frames to all connected devices
+    Hosts connect to switches by plugging into their ports
+    A에서 B로 데이터를 보내는데, broadcast할 필요가 없음
+    Switch에 있는 각각의 포트는 고유한 MAC 주소를 갖고 있음
+
+  2) What is a layer 2 switch?
+    A layer 2 switch is the most common type of switch used on a LAN
+    Layer 2 switches direct frames on a LAN based on the MAC adrs of each host's network adapter
+    Each port of a switch is mapped to the MAC adrs of the connected device
+
+  3) How do layer 2 switches function?
+    Layer 2 switches are hardward-based and use the MAC address of each host computer's network adapter when deciding where to direct data frames
+    Ports on the switch are mapped to the specific MAC address of the device attached
+
+  4) Virtual LAN(VLAN)
+    Layer2 switching can also allow for a virtual LAN(VLAN) to be implemented
+    IEEE 802.1Q is the standard that supports VLANs
+    A tag is added to the data frame to identify the VLAN
+
+  5) How do switches remember MAC adrs?
+    Switches map the MAC adrs of connected computers to their ports in a "CAM table"
+    CAM stands for Content Addressable Memory
+    The CAM table is stored in the memory of a switch - This memory is limited
+
+
+4. Layer 3 Switching
+  1) Layer 3 - Network Layer
+  Controls the operations of routing and switching info to diff networks
+  Translates logical adrs or names to physical adrs
+  IP(internet protocol) is a Network Layer protocol
+  Devices that work at the network layer are routers and IP switches
+  Network Layer components: IP address, subnets
+  Unit of measurement : packets
+
+  They differ from Layer 2 switches because they direct data using IP adrs instead of MAC adrs
+    -This means they forward packets instead of frames
+  They perform the same functions as routers
+  The benefit is that they can forward packets faster than routers
+
+
+
+5. Upper OSI Layers
+  1) Layer 4 - Transport Layer
+  Ensure messages are delivered error-free, in sequence and with no losses or duplications.
+  Protocols that work at this layer
+    -segment messages
+    -ensure correct reassembly at the receiving end
+    -perform message acknowledgement and message traffic control
+
+  2) Connectionless Communications
+    End-to-end connection is not necessary before data is sent
+    Every packet that is sent has the destinaton adrs in the header
+    Sufficient to move independent packets, such as in streaming media
+    Datagram delivery is not guaranteed and lost packets cannot be resent
+
+  3) Connection-based Protocols
+    The Transport Layer contains both connection-oriented and connectionless protocols
+      -Transmission Control Protocol(TCP) provides a connection-based, reliable, byte-stream service to programs
+      -User Datagram Protocol(UDP) provides a connectionless, unreliable transport service
+
+      TCP is used for logging on, file and print sharing, replictaion of information btw domain controllers, transfer of browse lists, and other common functions. TCP can only be used for one-to-one communications.
+
+      UDP is often used for one-to-many communications, using broadcast or multicast IP datagrams
+
+    4) Ports
+      Layer 4 Protocol that a computer uses for data transmission.
+        -Logical communications endpoint for specific program on computers for delivery of data sent
+      There are a total of 65,536 ports, numbering between 0 and 65,535
+      Ports are defined by the Inter Assigned Numbers Authority or IANA and divided into categories.
+
+    5) Layer 5 - Session Layer
+    Manages session establishment, maintenance and termination btw network devices
+      -Example : when you log on and log off
+    This layer controls the name and adrs database for the OS
+    NetBIOS(Network Basic Input Output System) is a protocol at layer 5
+
+    6) Layer 6 - Presentation Layer
+    Translates the data format from sender to receiver in the various OSes that may be used
+    Presentation layer concepts include:
+      -character code conversion
+      -data compression
+      -data encryption
+    Redirectors work on this layer, such as mapped network drives that enable a compute to access file shares on a remote computer
+
+    7) Layer 7 - Application Layer
+    Serves as a window for users and application processes to access network services
+    End-user protocols such as FTP, SMTP, Telnet..
+
+
+6. TCP/IP Model
+It is similar to the OSI model
+Composed of only four layers
+
+Application Layer   HTTP, Telnet, FTP, SMNP, DNS
+Transport Layer     TCP, UDP, RTP
+Internet Layer      IP, ICMP, ARP, RARP
+Network Interface   Ethernet, Token Ring, Frame Relay

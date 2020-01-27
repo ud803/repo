@@ -1,0 +1,42 @@
+0. Tor
+Tor는 프록시 소프트웨어 중 하나로, The Onion Router의 약칭이다.
+네트워크의 우회와 익명화를 위해 사용하는 툴 중 하나이며, 비슷한 것으로 프리넷과 I2P, Ultrasurf등이 있지만, tor가 가장 유명하다.
+익명성을 따지면 프록시 서버나 서버에 로그가 남을 가능성이 있는 VPN보다 안전하다.
+지정한 브라우저에서 송수신되는 모든 패킷을 우회시키기 때문에 완벽한 안정성을 제공한다.
+'토어'라고 읽음
+
+
+1. Proxy - routing your connection through several points.
+  Proxy를 통해 접속하지 말아야 한다.
+
+2. VPN - virtual private network
+  VPN 제공자가 내 정보를 공개하지 않는 이상 들킬 수가 없다.
+
+우리가 Proxy와 VPN을 통해 하려는 것은 방화벽을 우회하기 위해서임!
+
+예를 들어, 넷플릭스는 제한 범위의 IP에만 접근을 허용한다.
+Proxy와 VPN을 우회하면 그런 곳에 접근이 가능.
+
+
+3.
+Dark web은 regular internet보다 훨씬 크다.
+살펴보기 위해선 Tor Browser가 필요하다.
+여기서 유일하게 root가 아닌 새 사용자가 필요함.
+
+** root로 tor를 탐색하다가 malware에 감염되면 root 권한으로 실행되기 때문임 **
+*** 절대 root로 tor를 탐색하지 말 것 !!! ***
+
+  apt-get update
+  apt-get install tor -y
+    # y 옵션은 선택권을 주지 않음
+  adduser test
+
+  tor project 사이트로 가서 다운로드
+  연결이 많은 장치로 route되기 때문에 속도가 느리다!
+
+tor의 가장 큰 장점은 .onion 사이트에 접속하게 해준다는 것이다.
+다만, 매번 해킹으로 인해 사이트의 주소가 바뀌기 때문에, 그때그때 검색해야한다.
+
+  hiddenwiki
+
+tor에는 좋은 자료도 많지만, 그만큼 불법이고 위험한 자료도 많기 때문에 선별적으로 받아들여야 한다.

@@ -1,0 +1,25 @@
+Help files with alias or concept or title matching ‘pois’ using
+regular expression matching:
+
+
+boot::poisons           Animal Survival Times
+  Aliases: poisons
+mgcv::ziP               GAM zero-inflated Poisson regression family
+mgcv::ziplss            Zero inflated Poisson location-scale model
+                        family
+stats::Poisson          The Poisson Distribution
+  Aliases: Poisson, dpois, ppois, qpois, rpois
+stats::family           Family Objects for Models
+  Aliases: poisson, quasipoisson
+stats::poisson.test     Exact Poisson tests
+  Aliases: poisson.test
+survival::cipoisson     Confidence limits for the Poisson
+  Aliases: cipoisson
+
+
+Type '?PKG::FOO' to inspect entries 'PKG::FOO', or 'TYPE?PKG::FOO' for
+entries like 'PKG::FOO-TYPE'.
+
+
+
+

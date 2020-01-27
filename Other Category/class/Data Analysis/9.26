@@ -1,0 +1,85 @@
+9/26
+
+We assume that we know the market. (even though it's rapidly changing)
+
+Experts know what "past" customers want.
+  ex) Harry Potter got rejected when it was first published.
+
+Assumption is a big problem.
+
+어제 강조한 것
+User Case , Customer Centricity
+
+"The Fugitive" : 볼 영화
+
+----
+SeokJin Han, Global Black Belt, Microsoft
+
+Microsoft AI : Amplifying human ingenuity with intelligent technology
+
+Why Now?
+  1) Powerful Algorithms
+  2) Computing Power
+  3) Big Data (as a training data for A.I.)
+
+Chat-Bot
+  이미 paypal에서는 고객상담전화를 챗봇으로 대체하고 있음.
+  Skype에서 SkyScanner로 예매 가능.
+
+  내 bot을 만들어서 Cortana에 연결할 수도 있음
+
+
+Embedded bias -> 많은 이슈가 될 것임.
+  Ubalanced training data
+  lack of diversity로 인한 문제들
+
+"Presentation Translator" from MS Garage Project
+
+"Realtime crowd Insights"
+
+Bargaining Data (서로 데이터를 거래함)
+
+Contributory Data
+
+CaaP ; Conversations as a platform
+
+Bots are communication interfaces with natural language processing capabilities.
+
+---
+
+마이크로소프트는 AI 솔루션을 제공한다.
+Almost everything he showed to us was made in a year or two.
+
+"Democratizing AI"
+
+Q. 어떻게 AI 신생아들이 경쟁에 뛰어드나?
+A. -> Data가 중요하다.
+
+power of data analytics : customization
+
+Customization, Idividualization, Personalization!
+Digital Transformation
+
+
+--- 게임
+
+Individual Platform <- Cross Selling & Unichannel
+
+Data selling : ? 정말 좋은 일인지 모르겠다.
+
+Where would you gather the data (entertainment) ?
+  If you don't have the direct data, what is the target data?
+Unactionable data analytics is useless.
+Direct data나 surrogate data가 없으면 오늘 말한 것들은 의미가 없다.
+A를 했으면 B를 할 것이다 -> Causal relationship이 있어야 한다.
+
+---교수님 마무리 2things
+House of cards : Netflix only, 본 적도 없는 시리즈에 1억$를 투자.
+-> 왜? They had years and year of data what the customers were watching
+-> level of confidence.
+-> 보유한 데이터 양 (30 mil plays, 4 mil ratings, 3 mil searchings)
+-> 케빈 스페이시와 데이빗 핀처의 조합은 히트라고 생각했음! (데이터 분석을 통해)
+
+
+IBM's Watson :인공지능이 예고편도 만드네요.
+(겨우 수백개의 훈련 자료만으로도 "Scary"의 개념을 익힘)

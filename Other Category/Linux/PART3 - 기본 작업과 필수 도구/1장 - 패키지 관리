@@ -1,0 +1,104 @@
+1. 패키지 관리란 시스템에 소프트웨어를 설치하고 유지 및 관리하는 방법을 말한다. 오늘날, 대다수의 사람들이 배포업체로부터 패키지를 설치함으로써 그들이 필요한 모든 소프트웨어를 충족시킬 수 있다. 유명한 배포판에서는 시스템 관리를 위한 매우 강력하고 세련된 그래픽 환경을 지원하지만, 커맨드라인 프로그램에 대해서도 알아두는 것도 매우 중요하다. 왜냐하면 그래픽 환경에서는 아주 까다로운 (또는 불가능한) 작업들까지도 커맨드라인 프로그램에선 가능하기 때문이다.
+
+2. 패키지 시스템
+  리눅스 배포판마다 각기 다른 패키지 시스템을 운영한다. 그리고 일반적으로 특정 배포판을 위해 만들어진 패키지는 다른 배포판과 호환되지 않는다. 대부분의 배포판들은 크게 두 진영으로 나뉘는데, 첫째가 데비안 .deb이고 둘째가 레드햇 .rpm 이다. 물론 젠투(Gentoo), 슬랙웨어(Slackware), 포어사이트(Foresight)등 예외도 있지만 대부분의 대포판은 둘 중 하나에 해당된다.
+
+  데비안 스타일   : Debian, Ubuntu, Xandros, Linspire
+  레드햇 스타일   : Fedora, CentOS, Red Hat Enterprise Linux, openSUSE, Mandriva, PCLinuxOS
+
+3. 패키지 시스템 동작 원리
+  거의 대부분의 리눅스 소프트웨어들은 인터넷에서 다운로드할 수 있다. 배포업체가 제공하는 소프트웨어들은 대개 패키지 파일 형태거나 직접 설치할 수 있도록 소스 코드 형태로도 제공한다.
+
+  1) 패키지 파일
+  패키지 시스템에서 소프트웨어의 가장 기본적인 단위를 패키지 파일이라고 한다. 패키지 파일은 소프트웨어 패키지를 구성하고 있는 파일들의 압축된 형태다. 패키지 파일은 설치될 파일뿐만 아니라 해당 패키지 자체에 대한 메타데이터도 가지고 있다. 또한, 패키지에는 패키지 설치 전과 설치 후에 각각의 설정 작업을 수행하는 스크립트가 있다.
+
+  2) 저장소
+  일부 소프트웨어 프로젝트에서는 직접 패키징과 배포를 함께 수행하기도 하지만, 요즘은 대다수의 패키지들이 배포판 회사와 관심을 가진 서드 파티에 의해 만들어진다. 메인 저장소에서 보관하고 있는 수많은 패키지들은 단일 배포판 사용자만을 위한 것이고 이는 특별히 해당 배포판만을 위해 제작되고 관리된다.
+
+  하나의 배포판은 소프트웨어 개발주기의 각 단계에 따라 여러 개의 다른 저장소들을 운영할 수도 있다. 예를 들면, 테스트용 저장소가 있다. 여기에 빌드된 패키지들을 올려서 일반적인 배포 형태로 릴리즈하기 전, 버그를 찾고자 하는 용감한사용자들이 먼저 사용할 수 있도록 한다.
+
+  3) 의존성
+  프로그램 작업을 수행하기 위해서는 다른 소프트웨어 구성 요소들에 의존하게 된다. 예를 들면 입출력과 같은 기본 작업도 많은 프로그램들의 공유 루틴에 의해 제어된다. 이러한 루틴들은 공유 라이브러리라고 하는 공간에 저장되고 다수의 프로그램들에 필수 서비스를 제공한다. 만일 패키지가 공유 라이브러리와 같은 공유 자원을 필요로 한다면 의존성이 있다고 말한다. 최신 패키지 관리 시스템은 모두 의존성 문제를 해결하기 위한 방안을 제공한다.
+
+  4) 고수준과 저수준
+  저수준 툴은 패키지 파일을 설치하고 삭제하는 작업을 관리한다.
+  고수준 툴은 메타데이터 검색 및 의존성 문제 해결과 같은 작업을 수행한다.
+                저수준 도구        고수준 도구
+  데비안 형식         dpkg         apt-get, aptitude
+  그 외              rpm          yum
+
+
+4. 패키지 관리 작업
+개발자들은 저장소에 파일을 배포하고, 사용자들은 저장소에서 그 파일을 받아온다.
+update는 사용자의 list와 저장소의 list를 동기화하는 작업이고,
+upgrade는 그 동기화된 list를 바탕으로 실제 업그레이드를 진행하는 명령어.
+
+기본적으로 '우분투 공식 패키지 저장소'에 연결되어 있지만, 모든 프로그램이 이 저장소 안에 들어갈 순 없다. 그래서 서드 파티 소프트웨어를 위한 패키지 저장소에 따로 연결을 시켜줘야 한다.
+sudo add-apt-repository '주소'
+sudo add-apt-repository --remove '주소'
+
+인증되지 않은 패키지의 경우 update가 되지 않는데, 이럴 때는 해당 제작사에서 제공하는 public key를 받아 연결시켜주면 된다.
+https://www.virtualbox.org/wiki/Linux_Downloads   < 참고
+
+
+  1) 저장소에서 패키지 찾기
+      apt-get update
+      apt-cache search search_string
+      yum search search_string (redhat)
+
+  2) 저장소에 있는 패키지 설치하기
+      apt-get update
+      apt-get install package_name
+      yum install package_name (redhat)
+
+  3) 저장소가 아닌 출처
+      저장소가 아닌 다른 출처에서 다운로드한 패키지 파일이라면 저수준 도구를 이용하여 직접 설치할 수 있다. (의존성 문제는 해결되지 않는다.)
+
+      dpkg --install package_file
+      rpm -i package_file (redhat)
+
+  4) 패키지 삭제하기
+      apt-get remove package_name
+      yum erase package_name
+
+  5) 패키지 업데이트
+      apt-get update, apt-get upgrade
+      yum update (redhat)
+
+  6) 저장소가 아닌 출처로부터 업데이트 하기
+      dpkg --install package_file
+      rpm -U package_file (redhat)
+
+  7) 설치된 패키지 확인하기
+      dpkg --list
+      rpm -qa (redhat)
+
+  8) 패키지 설치여부 확인하기
+      dpkg --status package_name
+      rpm -q package_name (redhat)
+
+  9) 설치된 패키지 정보 표시하기
+      apt-cache show package_name
+      yum info package_name (redhat)
+
+  10) 특정 파일과 관련된 패키지 검색하기
+      dpkg --search file_name
+      rpm -qf file_name (redhat)
+
+  11) 의존성 바로잡기
+      sudo apt-get -f install (더 조사가 필요함!)
+5.
+
+Apt (Advanced Packaging Tool)
+  sudo apt install nmap
+  sudo apt remove nmap  --purge (package configuration까지 지움)
+  sudo apt update : update latest changes in the repositories
+  sudo apt upgrade: To upgrade your system, first update your package index as outlined above, and then type upgrade
+
+dpkg : package manager for Debian-based systems. cannot automatically download and install packages or their dependencies.
+  dpkg -l : list all packages installed on the system
+  dpkg -l | grep apache2 : find specific package
+  dpkg -L ufw : list the files installed by a package, in this case ufw
+  dpkg -S /etc/host.conf  : shows which package installed the file
+  sudo dpkg -i package_file : package install
+  sudo dpkg -r zip  : uninstall package (not recommended; using dpkg removal will remove the zip package, but any packages that depend on it will still be installed and may no longer function correctly)

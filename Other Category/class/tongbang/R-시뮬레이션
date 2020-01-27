@@ -1,0 +1,42 @@
+1. Monte Carlo
+Monte Carlo 방법은 적분을 근사하는 방법이다. 다른 수리적 방법에 비해 효율적이지는 않지만, 적분의 차원이 증가함에 따라 그 효율성은 매우 증가한다.
+
+I = (b-a)*1/n*sigma(g(X))
+대수의 법칙에 이흐ㅐ, n이 증가함에 따라
+I는 "(b-a)E[g(X)]"로 근사한다.
+
+E[g(X)]=a부터 b까지 g(x)*1/(b-a)를 적분한 것 = 1*I/(b-a)
+0에서 pi/2까지 4sin(2x)exp(-x^2)의 적분값을 알고자 한다.
+
+u <- runif(1000000, min=0, max=pi/2)
+pi/2*mean(4*sin(2*u)*exp(-u^2))
+
+2. Discrete Distribution
+x<- 0:10
+y <- dbinom(x, size=10, prob=.25)
+plot(x,y,type="h", lwd=30, main="Binom~", ylab="", lend="square")
+  #type h gives histogram-like plot
+  #we fattened the lines with the lwd(line width)
+  #lend는 도형의 모양
+
+curve(dnorm(x), from=-3, to=3)  # standard normal curve
+curve(pnorm(x,mean=10,sd=2), from=4, to=16) # a normal cdf
+
+(overlay)
+simdata = rexp(1000, rate=.1)
+hist(simdata, prob=T, breaks="FD", main="EXP(theta =10) RVs")
+curve(dexp(x, rate=.1), add=T)
+
+
+3. Random sampling
+
+sample(x, size, replace=FALSE, prob=NULL)
+  x : either a numeric, logical vector of elements
+  size : number of items to choose
+  prob : prob weights for elements
+
+sample(1:100,1)
+sample(1:6, 10, replace=T)
+sample(1:6, 10, T, c(.6,.2,.1,.05,.03,.02))
+
+urn = c(rep("red",8), rep("blue",4), rep("yellow",3))

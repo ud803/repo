@@ -1,0 +1,95 @@
+1. Hosts
+- Desktop PCs, laptops, cell phones, servers, routers and so on.
+- A host can be any device that has an IP address - an address used to send and  receive data in a network
+- IP address help identify devices and the networks where they are located
+
+2. Central connecting devices
+- Hubs, switches, and routers act as central connecting devices
+- Central connecting devices are responsible for:
+                                                  connecting hosts
+                                                  transmitting data
+- Different central connecting devices perform these functions in different ways
+
+  1) Hubs ( 모든 연결된 기기에 전송 )
+  Hosts send data to a hub
+  > Hub then broadcasts that data to all other connected hosts on the network
+
+  2) Switches ( 타겟 기기로 전송 가능 )
+  Hosts send data to a switch
+  > Switches direct data to its intended destination
+  Unlike hubs, switches can send and receive data simultaneously
+  Switches are the most common device used to connect hosts to a network
+
+  3) Routers
+  Routers are at the edge of LANs - They act as a gateway to other networks
+  Routers allow communication btw hosts on different networks
+
+- How do devices connect?
+  > Computers have network adapters, also known as Network Interface Cards (NICs), that allow them to connect to networks
+  > NICs via wires or wireless signals
+    - Wired adapters feature an RJ45 port
+        Ethernet cables transmit data in the form of electrical pulses (copper wires) > in a binary form
+    - Wireless adapters feature an antenna and connect to network using WAPS(Wireless Access Point)
+        Wireless connections rely on different technologies
+        WAPs provide a central point of access for devices that want to connect to a LAN
+        재밌는 사실은 무선 연결도 결국은 유선 연결로 이어진다!
+
+
+3. Data Transfer
+  - Serial Data Transfer
+      Transfer of one bit at a time
+      Data can travel in a single bit stream in both directions > Depends on type of connection
+      Simplex - one way
+      Duplex - two way
+      half-Duplex - two way, not at the same time
+
+  - How fast?
+      A data transfer rate is the maximum bits per seconds (bps)
+      lowercase b means bits (not byte - B)
+      10 Mbps = called bitrate
+
+  - Data transfer process
+    <<Sending>>
+      1) Large chunks of data are broken into "segments"
+      2) Addressing info is added to each seg, making it a "packet" - IP adr
+      3) Packets travel to the network adapter, where a little more info is added and they become "Ethernet frames" - MAC adr
+      4) Each frame is then broken into a data stream of bits - 0s and 1s - that travel over physical media
+
+    <<Receiving>>
+      1) Reassembles the bits into an "Ethernet frame"
+      2) Removes the frame info and check the "packet" info to make sure it was the intended recipient
+      3) Packet info is then stripped, and the data "segment" is reassembled in to the file that we click on in Windows Explorer
+
+  - How does data know where to go?
+      Most every computer have an Internet Protocol (IP) address - unique one
+      A typical example of an IPv4 adr would be 192.168.1.1
+      Every IP adr is broken down into two parts by a "subnet mask"
+        -Network ID 192.168.1  -> City, State, street
+        -Host ID 1  -> house number
+        - .(dots) are called Octet (8bit)
+
+      << Subnet Mask >>
+      A group of four numbers that define a computer's network
+      All of the 255s in a subnet mask collectively refer to the network portion, whereas the 0s refer to the host portion
+
+
+
+4. Types of LANs
+  1) Wired LANS (WLANs)
+    Hosts, such as PCs or laptops, are connected to central connecting devices by copper-based twisted pair cabling.
+
+  2) Wireless LANs (WLANs)
+    Hosts connect to networks through WAPs
+    To connect to a WAP, a device must have a wireless network adapter
+    In larger WLANs, the WAP has to connect to a wired switch
+
+  3) Virtual LANs (VLANs)
+    With VLANs, devices in a LAN are grouped based on their function
+    Any wired or wireless devices are included
+    Implemented to 1) organize network 2) enhance performance 3) increase secur
+    Physical location of devices does not matter
+
+  4) Perimeter Networks
+    Perimeter networks, or demilitarized zones(DMZs) are small LANs that are set up outside of an org's LAN
+    DMZs typically consist of servers that provide services, like web hosting or email
+    This setup allows users outside of an org's LAN to access the servers, but not the org's LAN

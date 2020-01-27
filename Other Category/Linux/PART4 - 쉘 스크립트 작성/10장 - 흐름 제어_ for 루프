@@ -1,0 +1,78 @@
+흐름 제어의 마지막 장에서는 쉘 루프의 또 다른 구성 요소인 for 루프를 살펴볼 것이다. for 루프는 반복 중에 작업 순서를 처리하는 수단을 제공한다는 점에서 while, until 루프와 차이가 있다. 이는 프로그래밍할 때 매우 유용하기 때문에 bash 스크립팅에서 for 루프는 매우 인기가 있다.
+
+
+1. for: 전통적인 쉘 형식
+for 명령어의 원 문법은 다음과 같다.
+
+    for variable [in words]; do
+          commands
+    done
+
+variable은 루프 수행 중에 증가되는 변수명이고, words는 선택적인 variable에 순차적으로 할당되는 항목의 목록이다. 그리고 commands는 각 반복마다 실행되는 명령들이다.
+
+    for i in A B C D; do echo $i; done
+
+for문의 강력한 기능은 단어 목록을 생성할 수 있는 흥미로운 방법을 상당수 제공한다는 것이다. 예를 들면, 중괄호 확장을 사용할 수 있다.
+
+    for i in {A..D}; do echo $i; done
+
+또는 경로명 확장,
+
+    for i in distros*.txt; do echo $i; done
+
+그리고 명령어 치환,
+
+    #!/bin/bash
+
+    # longest-word : find longest string in a file
+
+    while [[ -n $1 ]]; do
+        if [[ -r $1 ]]; then
+            max_word=
+            max_len=0
+            for i in $(strings $1), do
+                len=$(echo $i | wc -c)
+                if (( len > max_len )); then
+                    max_len=$len
+                    max_word=$i
+                fi
+            done
+            echo "$1: '$max_word' ($max_len characters)"
+        fi
+        shift
+    done
+
+이 예제는 파일 내의 가장 긴 문자열을 검색한다. 커맨드라인에 하나 이상의 파일명이 주어질 때, 이 프로그램은 각 파일마다 읽을 수 있는 텍스트 "단어들"의 목록을 생성하기 위해 strings 프로그램을 사용한다. for 루프는 각 단어를 차례대로 처리하면서 현 단어가 지금까지 발견된 가장 긴 것인지 확인한다. 루프가 완료되면 가장 긴 단어가 표시된다.
+
+./word filename의 형태로 사용한다!
+
+
+
+
+2. for : C 언어 형식
+bash의 최신 버전에서는 C언어에서 사용하는 형식과 닮은 for 명령 문법이 있다.
+
+for (( expression1; expression2; expression3 )); do
+    commands
+  done
+
+  expression은 모두 산술식이다.
+
+  위 형식은 동작 측면에서 다음 구조와 동일하다.
+
+  (( expression 1 ))
+  while (( expression 2 )); do
+    commands
+        (( expression3 ))
+  done
+
+  즉, 1은 루프를 위한 초기 상태, 2는 루프가 끝나는 시점, 3은 루프의 반복 끝에실행된다.
+
+
+    #!/bin/bash
+
+    # simple_counter : demo of C style for command
+
+    for (( i=0; i<5; i=i+1 )); do
+        echo $i
+    done

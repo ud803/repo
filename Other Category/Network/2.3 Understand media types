@@ -1,0 +1,36 @@
+1. Wired networks
+Though wireless connections are gaining in popularity, we still depend on wired networks to send our data
+  -The most common type of wire used in networking is made of copper
+  -The cable we rely on to send our data at ultra fast speeds is made of glass fiber
+
+
+2. Twisted Pair Cables (TPC)
+  Most common cables in LANs
+    -fast
+    -efficient
+    -cheap compared to others
+  Mtp types of TPCs, and they can be installed temporarily or permanently
+
+  Each TPC has 8 wires
+    grouped into 4 pairs : blue, orange, green, brown
+    every pair is twisted
+    and all pairs are twisted
+    they are twisted to reduce crosstalk and interference
+
+    1) Patch Cables
+    The cables that we use to connect our devices to SOHO routers or RJ45 ports are called patch cables
+
+    Two types of patch cables : straight through, cross over
+      straight through : 양 끝이 같은 standard를 씀 , 보통 pc와 switch
+      cross over       : 양 끝이 다른 standard를 쓸 수 있음, pc와 pc 연결 가능
+
+    2) Cabling Standards
+    TIA/EIA
+    When making a patch cable, the wires of a twisted pair cable are placed in order
+    Then crimped, or secured, once the wires are in place
+
+3. Shielded Twisted pair (STP)
+
+4. Fiber Optic Cables
+Transmit data using light, instead of electricity.
+Used when higher data transfer rate are required, or when data has to be transferred longer distances.

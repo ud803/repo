@@ -1,0 +1,66 @@
+1. Network Topologies
+  Network topology defines the physical connections of hosts in a network
+  There are multiple types of topologies, including : Bus, Star, Ring, Mesh
+
+  1) Bus Topology
+    All devices are connected via copper cable in a line
+    데이터를 일렬로 차례대로 보냄, 비효율적임
+    one-way
+  2) Star Topology
+    Each host is connected to a central connecting device with TPC
+    Most commonly used topology
+    Two star topologies can be connected via their central connecting devices to form a star-bus topology
+    가장 흔하게 쓰임
+  3) Ring Topology
+    Each device is connected to the LAN using a closed loop
+    Each device is connected to two other devices
+    two way, closed loop
+  4) Mesh Topology
+    Each computer connected to every other computer in a LAN
+    No central connecting device
+    Setup is "fault-tolerant" - allows data to be sent via mtp pathways if one path fails
+
+
+
+2. Ethernet Standards
+  1) What is Ethernet?
+    A standard that defines how data is sent and received btw devices
+    Most widely used standard on the Internet today - Token Ring / FDDI
+    Standardized by the IEEE as 802.3 (Institue of Electrical and Electronic Engineers)
+  2) What are frames?
+    Devices on Ethernet networks transmit feature
+      - Sequence of bits containing a detectable beginning and end of a packet in the stream of bits
+      - Include physical address information that helps switches determine where to send data > IP주소가 아닌 MAC 주소로 판단
+    간단한 도식으로 표현하면 다음과 같다
+    [begin][adr info][data][end]
+  3) IEEE 802.3
+    Defines carrier sense multiple access with collision detection (CSMA/CD)
+      - Devices share a connection
+      - If they send data at the same time, collisions occur
+      - So, only one computer can transmit at a time
+    CSMA/CD allows devices to send/receive data by limiting collisions
+
+    <<CSMA-CD Process>
+      1. Assemble a frame
+      2. Check if the medium is free
+        a. If free, transmit a bit of the frame
+        b. If not, don't transmit and repeat step 2
+      3. Check if a collision was detected
+        a. If so, implement the collision detected procedure
+        b. If not, transmit the remaining bits in the frame
+
+        <<Collision detected procedure>>
+          1. Send out a jam signal to stop all communication on the medium
+          2. Wait based on the number of collisions detected
+          3. Starts sending the remaining bits of the frame
+
+
+3. Client/Server vs. Peer-to-Peer
+  1) Client/Server
+    Servers are computers dedicated to providing specific types of services or data
+    A client uses software to ask a server for data or services
+    Ther server provides the data or service to the client
+
+  2) Peer-to-Peer
+    Peers are clients that have equal capabilities and resp in this model
+    P2P file sharing : Skype, VoIP, Cloud computing

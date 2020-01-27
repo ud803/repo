@@ -1,0 +1,202 @@
+#1강 - My PC's Internet Setup
+
+0. Ethernet Connection
+TCP/IPv4
+DHCP(Dynamic Host Configuration Protocol)
+
+
+1. IP Address
+  Ipv4 32bit (4 byte) address format
+  8bits: 00000000 ~ 11111111 = 0 ~ 255
+  8 bits = 1 Byte = 1 Octet
+
+  8 bits. 8 bits. 8 bits. 8bits의 형태를 가진다.
+  165. 132. 126. 159
+
+  IP는 인터페이스에 할당된다. 컴퓨터나 스마트폰은 다수의 인터페이스를 가질 수 있기 때문에, 다수의 IP 주소가 필요하다.
+  ex. Mobile communication
+    2G/3G/4G
+    Wi-Fi
+    Bluetooth 총 5개의 인터페이스가 있고, 5개의 IP주소가 필요함.
+
+2. Subnet mask
+  인터넷은 subnet으로 나뉘어 있고, 각 서브넷은 더 작은 서브넷으로 나뉘어있음.
+
+  서브넷 마스크는 PC가 연결된 서브넷의 사이즈에 기반한다.
+
+  IPv4 서브넷 마스크는 32비트로 구성됨.
+    1s or 0s in a sequence
+  서브넷 마스크는 IP주소를 mask(filter)하기 위해 사용됨.
+    255.255.252.0
+    11111111.11111111.11111100.00000000
+  서브넷 마스크는 서브넷 사이즈를 찾기 위해 사용될 수 있다.
+  여기서 0이 10개이기 때문에 2의 10승, 즉 1024개의 IP주소가 이 서브넷에 있다.
+  하지만 모든 주소가 하나의 PC를 위해 사용되지는 않음.
+
+
+
+3. Default Gateway
+  Gateway는 모든 IP패킷을 주고받는 인터넷 라우터이다.
+  PC는 인터넷을 이 게이트웨이를 통해 접근한다!
+  모든 게이트웨이는 라우터다.
+
+
+4. DNS (Domain Name Server)
+  호스트네임을 IP주소로 바꿔주는 서버이다.
+    preferred는 메인, alterenate는 백업용이다.
+
+
+
+
+
+#2강 - Automatic Internet Setup using DHCP
+(Dynamic Host Configuration Protocol)
+
+1. DHCP
+DHCP는 컴퓨터/스마트폰이 자동으로 로컬 DHCP 서버에 접속하도록 한다.
+접속 후, IP 주소와 네트워크 파라미터를 요청하여 인터넷에 연결한다.
+
+1)요구 사항
+로컬 DHCP 서버가 존재해야 한다.
+DHCP를 사용하면, 설치가 자동적이다. 따라서 스마트폰이 주로 사용한다.
+DHCP는 IPv4와 IPv6에 사용된다.
+
+2)DHCP 서비스
+인터넷 접근을 허용하기 위해, DHCP 서버는 동적으로 다음을 할당한다.
+  - IP 주소
+  - 서브넷 마스크
+  - 기본 게이트웨이의 IP 주소
+  - DNS 서버의 IP 주소
+  - 그리고 다른 파라미터들
+
+3)특징
+모두 자동이기 때문에 사용하기 쉽다.
+IP주소의 재사용을 가능케한다. 그 시간에 필요한 기기에만 IP를 할당한다. (효율적)
+특히 이는 IPv4에 중요한데, IPv4 주소는 길이에 한계가 있기 때문이다.
+Ipv4는 32bit -> 약 43억개의 IP 주소이다. 하지만 요즘 시대에는 엄청난 수의 IP 주소가 사용된다. (Multiple Interfaces per device)
+따라서 DHCP와 Ipv6가 필요하다!
+
+4)작동
+DHCP는 클라이언트-서버 모델에서 작동한다.
+클라이언트는 내 컴퓨터/핸드폰이고 서버는 DHCP 서버이다.
+DHCP 서버는 다음을 관리한다.
+  -IP 주소
+  -클라이언트 정보 (DNS, Name Server, Time server ,Default Gateway)
+
+다음과 같이 작동한다.
+  - 클라이언트가 네트워크에 연결
+  - DHCP가 UDP (User Datagram Protocol)와 클라이언트의 68번 포트, DHCP 서버의 67번 포트를 사용
+  - 클라이언트의 DHCP 프로그램이 네트워크 정보를 요구하는 "Server Discovery" 메시지를 송출
+  - 네트워크에 있는 어떠한 DHCP서버라도 "IP Lease Offer" 메시지를 통해 서비스를 제공할 수 있음
+  - 클라이언트는 "IP Lease Request"를 다시 보냄
+  - 그 DHCP 서버가 "IP Lease Acknowledgement"를 보내서 클라이언트가 IP주소와 네트워크 파라미터를 정해진 시간동안 사용할 수 있도록 함
+
+
+
+
+
+#3강 - IP GatewayRouter Configuration
+
+1. IP Network Requirements
+  1) 4개의 방이 있다. A-100pc, B-50pc, C-25pc, D-25pc
+     라우터(Gateway)의 1,2번 포트는 A와 B 방에, 3번 포트는 C와 D를 연결해주는 허브에 연결되어 있다. 4번 포트는 인터넷에 연결되어 있다.
+  2) 모든 방의 컴퓨터가 고유의 IP주소를 할당받도록 IP 네트워크를 서브넷한다.
+  3) 165.132.9.0을 subnet off 한다 (256개의 IP주소를 이용해서)
+  4) 게이트웨이는 A,B,C,D와 인터넷을 연결한다.
+  5) 인터넷 포트의 IP는 165.132.15.56
+서브넷마스크(넷마스크)는 255.255.255.252 이다.
+
+
+2. Design Objective
+  165.132.9.0에서 256개를 쓰기 때문에
+  IP주소는 (165.132.9.0~ 165.132.9.255) 이다.
+
+3. Detail
+  1) Subnet for Room A
+  Room A (100 pcs)    : 100 IP 주소
+  Network Destination : 1 IP 주소 (100개를 subnet하기 위한 것), Lowest!
+  Broadcast IP        : 1 IP 주소 (100개의 pc로 송출하기 위한 것), Highest!
+  Gateway Interface 1 : 1 IP 주소 (게이트웨이와 연결되기 위한 것),2nd Highest!
+  총 103개의 주소 <= 128 = 2^7 가장 작은 서브넷 사이즈를 찾아야 한다.
+  따라서 서브넷 마스크는 다음과 같다.
+  11111111.11111111.11111111.10000000 (7 zeros) = 255.255.255.128
+
+  그럼, 다음과 같이 표현할 수 있다.
+  Room A의 IP 주소 = 165.132.9.*
+  *에 들어갈 것은,
+    0         Network Destination
+    1~100     IP Adrs for 100 PCs
+    101~125   IP Adrs not used
+    126       Gateway Interface 1 IP Adrs
+    127       Broadcast IP Adrs
+
+  ** CIDR (Classless Inter-Domain Routing)
+  Network Destination / Subnet Mask 1의 개수 (32-7 = 25)
+  CIDR Network ID : 165.132.9.0/25
+
+
+  2) Subnet for Room B
+  Room B (25 PCs)     : 25 IP 주소
+  Network Destination : 1 IP 주소 : Lowest
+  Broadcast IP        : 1 IP 주소 : Highest
+  Gateway Interface 2 : 1 IP 주소 : 2nd Highest
+  총 28개의 주소 = 28 <= 32 = 2^5
+  11111111.11111111.11111111.11100000 (5 zeros) = 255.255.255.224
+
+  165.132.9.* (A에 127까지 썼기 때문에 128부터 사용)
+    128       Network Destination
+    129~153   IP Adrs for 25 PCs
+    154~157   Ip Adrs not used
+    158       Gateway Interface 2 IP Adrs
+    159       Broadcast IP Adrs
+
+  ** CIDR
+  165.132.9.128/27
+
+
+  3) Subnet for Room C & D
+  이 경우, 스위치와 허브의 IP는 할당하지 않았지만, 만약 할당 한다면 사용되지 않은 IP중 가장 높은 값을 할당한다.
+
+  Room C+D (50 PCs)     : 50 IP 주소
+  Network Destination   : 1 IP 주소
+  Broadcast IP          : 1 IP 주소
+  Gateway Interface 3   : 1 IP 주소
+  총 53개의 주소 = 53 <= 64 = 2^6
+  11111111.11111111.11111111.11000000 (6 zeros) = 255.255.255.192
+
+  165.132.9.* (A,B에 159까지 썼기 때문에 160부터 사용)
+    160       Network Destination
+    161~210   IP Adrs for 50 PCs
+    211~221   IP Adrs not used
+    222       Gateway Interface 3 IP Adrs
+    223       Broadcast IP Adrs
+
+  ** CIDR
+  165.132.9.160/26
+
+
+
+
+
+#4강 - IP routing table
+
+IP routing table은 게이트웨이에 포함되어 있다.
+3장에서 본 정보들이 잘 정리되어 있는 표이다.
+
+Room  / Destination / Subnet mask / Gateway / Interface(Port)  / Metric
+A
+B
+C,D
+Internet
+Default Route
+
+Metric은 route의 효율성을 말함.
+Default Route는 0.0.0.0의 서브넷마스크를 가지고 있다. 즉, 모두 열린 올패스 서브넷 마스크이다. 따라서 모든 IP주소가 여기에 해당된다는 의미이다. 그래서 인터넷 연결도 이 Default Route의 한 부분이다. (둘을 합쳐서 쓴다)
+
+1. IP 패킷이 게이트웨이/라우터를 통과하면, 라우팅 테이블이 이 패킷을 어디로 보낼지 결정한다.
+2. IP 패킷에서, 라우팅 테이블은 위에서 아래로 순서대로 확인한다.
+3. 첫 행이 먼저 확인되는 것이다.
+4. 서브넷마스크의 Ip주소가 255.255.255.128이기 때문에, 128개의 IP주소가 있다는 말이다. 여기서 IP 주소의 범위를 추론할 수 있다.
+  1) 받은 IP 패킷의 IP주소가 이 범위 내면, 해당 포트를 통해 전송된다.
+  2) 매 행에 대해 반복한다.
+  3) 만약 마지막 행까지 간다면, default route는 올 패스이기 때문에, 여기로 전송된다

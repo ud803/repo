@@ -1,0 +1,278 @@
+다수의 프로그래밍 문제들은 문자열과 숫자처럼 더 작은 데이터 단위를 사용하여 해결되는 경우가 많이 있다. 이 장에서는 문자열과 수를 조작하는 쉘의 여러 기능을 살펴볼 것이다. 쉘은 문자열 연산을 수행하는 다양한 파라미터 확장을 제공한다. 추가적으로 산술 확장과 be라는 커맨드라인 프로그램을 살펴볼 것이다.
+
+
+1. 매개변수 확장
+  1) 기본 매개변수
+  가장 단순한 형태의 매개변수 확장은 일반적인 변수의 사용이다.
+  $a는 그 변수가 가진 값으로 확장되고, ${a}와 같이 중괄호로 감쌀 수도 있다.
+  쉘이 혼동할 수 있는 다른 텍스트와 인접해 있다면 중괄호가 필요하다.
+  또한, 9보다 큰 위치의 매개변수에 접근하기 위해서도 중괄호를 사용했다.
+
+    a="foo"
+    echo "$a_file"    / 아무 일도 일어나지 않는다.
+    echo "${a}_file"  / foo_file이 출력된다.
+    ${11}
+
+  2) 빈 변수를 관리하기 위한 확장
+  존재하지 않거나 빈 변수를 처리할 수 있는 방법이 있다. 이러한 확장들은 위치 매개변수의 부재를 제어하고 매개변수에 기본값을 할당하기 쉽게 한다.
+
+    a. ${parameter:-word}
+
+    parameter가 설정되지 않거나 비어있다면, 이 확장 결과는 word의 값이 되고
+    비어있지 않다면, 확장 결과는 parameter의 값이 된다.
+    (이는 일시적임!)
+      foo=
+      echo ${foo:-"substitute value if unset"}
+      echo $foo
+      foo=barhecho ${foo:-"substitute value if unset"}
+      echo $foo
+
+
+    b. ${parameter:=word}
+
+    parameter가 설정되지 않거나 비어있다면, 이 확장 결과는 word값이 된다.
+    게다가 parameter에 word의 값이 할당된다! (영구적)
+    비어있지 않다면, 확장 결과는 parameter의 값이 된다.
+
+
+    c. ${parameter:?word}
+
+    parameter가 설정되지 않거나 비어있다면, 오류가 발생하며 스크립트는 종료된다.
+    그리고 word의 값은 표준 출력으로 보내진다.
+    비어있지 않다면, 확장 결과는 parameter의 값이 된다.
+
+    d. ${parameter:+word}
+
+    parameter가 설정되지 않거나 비어있다면, 확장은 아무런 결과를 표시하지 않는다.
+    비어있지 않다면, parameter는 word 값으로 대체된다. 하지만 parameter의 값은 변하지 않는다.
+
+      foo=bar
+      echo ${foo:+"substitute value if set"}
+      substitute value if set
+
+
+  3) 변수명을 반환하는 확장
+  쉘은 변수명을 반환하는 기능이 있다. 이 기능은 이례적인 상황에서 사용된다.
+
+      ${!prefix*}
+      ${!prefix@}
+
+  이 확장은 prefix로 시작하는 이미 존재하는 변수의 이름을 반환한다. bash 문서에 따르면, 이 두 확장 형식은 동일하게 동작한다. 즉 환경 값에 저장된 BASH로 시작하는 이름을 가진 모든 변수를 나열한다.
+  echo ${!BASH*}
+
+
+  4) 문자열 연산
+  확장들의 집합은 문자열을 조작하기 위해 사용될 수 있다. 이러한 확장들은 특히 경로명을 조작하기 적당하다.
+
+    a. ${#parameter}
+
+    이 확장은 parameter가 포함된 문자열의 길이로 확장된다. 일반적으로 parameter는 문자열이지만 만약 @이거나 *이면 그 확장 결과는 위치 매개변수의 개수를 나타낸다.
+
+      foo="This string is long."
+      echo "'$foo' is ${#foo} characters long."
+
+    b. ${parameter:offset}
+       ${parameter:offset:Length}
+
+    이 확장은 parameter에 포함된 문자열의 일부를 추출하기 위해 사용된다. offset에 위치한 문자부터 시작해서 Length를 명시하지 않으면 문자열 끝까지 추출한다.
+
+      foo="This string is long."
+      echo ${foo:5} / string is long.
+      echo ${foo:5:6} / string
+
+    만약 offset값이 음수이면, 문자열의 앞부분이 아닌 끝부분부터 시작하라는 의미이다.
+    ${parameter:-word} 확장과 혼동을 막기 위해 음수값 앞에 반드시 스페이스를 두어야 한다.
+
+    c. ${parameter#pattern}
+       ${parameter##pattern}
+
+    이 확장은 매개변수가 가진 문자열에서 pattern에 정의된 내용으로 시작하는 부분을 제거한다.
+    pattern은 경로명 확장에 사용되는 것처럼 와일드카드 패턴이다. #은 최단 길이로 일치하는 것을 제거하고, ##은 최장 길이로 일치하는 것을 제거한다.
+
+      foo=file.txt.zip
+      echo ${foo#*.}  / txt.zip
+      echo ${foo##*.} / zip
+
+    d. ${parameter%pattern}
+       ${parameter%%pattern}
+
+    이 확장은 앞의 #, ##와 동일하다. 다만 문자열의 시작이 아닌 끝에서부터 제거한다.
+
+      foo=file.txt.zip
+      echo ${foo%.*}  / file.txt
+      echo ${foo%%.*} / file
+
+    e. ${parameter/pattern/string}
+       ${parameter//pattern/string}
+       ${parameter/#pattern/string}
+       ${parameter/%pattern/string}
+
+    이 확장은 parameter의 내용을 치환한다.
+    일반 형식은 일치하는 첫 부분만 대체한다.
+    //형식은 일치하는 모든 부분을 대체한다.
+    /#형식은 문자열의 시작 부분에서 일치하는 경우, /%는 끝 부분에서 일치하는 경우에 대체한다.
+    /stringㅇ르 생략하면 해당 텍스트는 삭제된다.
+
+      foo=JPG.JPG
+      echo ${foo/JPG/jpg}  / jpg.JPG
+      echo ${foo//JPG/jpg} / jpg.jpg
+      echo ${foo/#JPG/jpg} / jpg.JPG
+      echo ${foo/%JPG/jpg} / JPG.jpg
+
+
+매개변수 확장은 알아두기에 유용하다. 문자열 조작 확장은 sed와 cut과 같은 다른 일반 명령어의 대체제로 사용된다. 확장은 외부 프로그램의 사용을 없애 스크립트의 효율을 증진시킨다! 최장 길이 단어 프로그램을 수정해보자.
+
+    #!/bin/bash
+
+    # longest-word3 : find longest string in a file
+
+    for i; do
+      if [[ -r $i ]]; then
+        max_word=
+        max_len=
+        for j in $(strings $i); do
+          len=${#j}
+          if (( len > max_len )); then
+            max_len=$len
+            max_word=$j
+          fi
+        done
+        echo "$i: '$max_word' ($max_len characters)"
+      fi
+      shift
+    done
+
+
+time 명령어를 사용하여 두 버전의 효율성을 비교하면,
+
+  time longest-word2 dirlist-usr-bin.txt
+  time longest-word3 dirlist-usr-bin.txt
+
+3.618초가 걸리는 반면, 0.06초만에 완료를 한다. 엄청난 발전이다.
+
+
+
+
+
+2. 산술 연산과 확장
+산술 연산의 기본적인 형식은 다음과 같다.
+
+    $((expression))
+
+    1) 기수
+    우리는 9장에서 8진수와 16진수를 살펴보았다. 쉘은 산술식에서 모든 기수의 정수 상수를 제공한다.
+
+      Number      : 기본값. 10진수
+      0Number     : 8진수
+      0xnumber    : 16진수
+      base#number : base를 기수로 하는 수
+
+      echo $((0xff)) / 255
+      echo $((2#11111111)) / 255
+
+    2) 단항 연산자
+    양수, 음수를 가르는 연산자는 +와 -가 있다.
+
+    3) 기본 연산
+
+    +, -, *, /, **, %
+    쉘의 산술 연산은 오직 정수에서 이루어지기 때문에 나눗셈의 결과는 항상 자연수다.
+
+    4) 대입
+    산술식에서 대입의 쓰임이 직접적으로 보이지 않더라도, 그것은 이미 수행되고 있다.
+
+      foo=
+      echo $foo / (없음)
+      if (( foo = 5 )); then echo "It is true."; fi
+      /It is true.
+      echo $foo / 5
+
+      여기서 True가 나오는 이유는, =가 대입 연산자이기 때문이다. 이 수행이 성공했기에 참으로 받아들인다.
+
+    5) 비트 연산
+    비트 연산자는 특이한 방식으로 수를 조작하고 비트 단위로 작업한다.
+    비트 부정을 제외하고 모든 비트 연산은 이에 상응하는 대입 연산자(<<=)가 있다.
+      ~   비트 부정. 수의 모든 비트를 부정 연산
+      <<  왼쪽 비트 시프트. 수의 모든 비트를 왼쪽으로 이동
+      >>  오른쪽 비트 시프트
+      &   비트 논리곱. 두 수의 모든 비트에 AND 연산 수행
+      |   비트 논리합. 두 수의 모든 비트에 OR 연산 수행
+      ^   비트 배타 논리합. 두 수의 모든 비트에 배타적 OR 연산 수행
+
+      for ((i=0;i<8;++i)); do echo $((1<<i)); done
+      / 1 2 4 8 16 32 64 128
+
+    6) 논리 연산
+    (( )) 합성 명령어는 다양한 비교 연산자를 제공한다.
+    수식이 0으로 평가되면 거짓이고, 0이 아니면 참이다.
+
+      <=  보다 작거나 같은
+      >= < > == != && ||
+      expr1? expr2:expr3 삼항 연산자. expr1이 참이면 expr2가, 아니면 expr3 실행
+
+        a=0
+        ((a<1?++a:--a))
+        echo $a / 1
+
+        ((a<1?a+=1:a-=1)) -- 오류!!
+        ((a<1?(a+=1):(a-=1))) -- 성공!!
+
+        **예제
+            finished=0
+            a=0
+
+
+            printf "a\ta**2\ta**3\n"
+            echo -e "=\t====\t===="
+
+            until ((finished)); do
+                    b=$((a**2))
+                    c=$((a**3))
+                    printf "%d\t%d\t%d\n" $a $b $c
+                    ((a<10?++a:(finished=1)))
+            done
+
+
+
+
+3. bc - 정밀 계산기 언어
+우리는 쉘이 모든 종류의 정수 연산을 제어할 수 있는 것을 봤다. 하지만 부동 소수점 수를 사용해야 한다면 어떻게 될까? 그 대답은, 할 수 없다이다. 결국 외부 프로그램을 사용할 필요가 있다. 내장된 Perl 또는 AWK도 그 해법이지만, 우리는 bc를 사용할 것이다.
+
+bc 프로그램은 C와 유사한 언어로 작성된 파일을 읽고 실행한다. bc 스크립트느 독립된 파일이거나 표준 입력으로 읽어들일 수 있다. bc 언어는 변수, 반복문과 프로그래머 정의 함수를 포함한 꽤 다양한 기능을 제공한다.
+
+  1) bc 사용
+  /* A very Simple bc script */
+
+  2 + 2
+
+  bc는 bc foo.bc와 같이 사용한다.
+  저작권 메시지를 숨기려면 bc -q foo.bc를 사용한다.
+
+  또한, bc -q를 통해 대화식으로도 사용할 수 있다. (quit로 종료)
+  표준 입력을 통해 bc 스크립트 전달도 가능하다!
+  bc < foo.bc
+
+  이는 또한 here 문서, 문자열, 파이프를 사용할 수 있다는 의미이다.
+  bc <<< "2+2"
+
+  2) 예제
+  우리는 월별 대출 상환금을 계산하는 스크립트를 구성할 것이다.
+
+
+      if (($# != 3)); then
+          usage
+          exit 1
+      fi
+
+      principal=$1
+      interest=$2
+      months=$3
+
+      bc <<- EOF
+            scale = 10
+            i = $interest / 12
+            p = $principal
+            n = $months
+            a = p * ((i * ((1+i)^n)) / (((1+i)^n)-1))
+            print a, "\n"
+      EOF

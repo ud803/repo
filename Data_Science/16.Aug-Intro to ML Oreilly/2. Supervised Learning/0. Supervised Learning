@@ -1,0 +1,36 @@
+Supervised learning is one of the most commonly used and successful types of machine learning. It's used whenever we want to predict a certain outcome from a given input, and we have examples of input/output pairs. Ourgoal is to make accurate predictions for new, never-before-seen data. Supervised learning often requires human effort to build the training set, but afterward automates and often speeds up an otherwise laborious or infeasible task.
+  There are 2 major types of supervised learning - Classification & Regression
+
+
+1. Classification
+The goal is to predict a "class label", which is a choice from a predefined list of possibilities. It is sometimes separated into binary classification, and multiclass classification.
+
+Classification
+  -Binary classification
+    Positive class / negative class
+    Positive = what the object of the study is, subjective matter
+  -Multiclass Classification
+
+2. Regression
+The goal is to predict a continuous number, or a floating-point number in programming terms. Predicting a person's annual income from their education, their age, and where they live.
+
+
+3. Basic Terms
+
+Generalization
+  If a model is able to make accurate predictions on unseen data, we say it is able to generalize from the training set to the test set. We want to build a model that is able to generalize as accurately as possible.
+
+  하지만, 아주 복잡한 모델을 세운다면 training set도 정확해질 수밖에 없다. 예를 들어 한 데이터셋을 보고 "45살 이상의, 남성이고, 아이를 3명 이하로 가진 사람"이 특정 제품을 구매한다는 사실을 알아냈다고 하자. 현재의 데이터셋에서는 이 사실이 100% 정확하지만 이는 그렇지 않다. 우리는 정확한 prediction을 하려는 것이 아니라, 새로운 고객이 얼마나 제품을 구매하려는 지 그 가능성을 보려는 것이다. 따라서 training set에서 100%의 정확도를 보이는 것이 사실 그렇게 중요하지 않다.
+
+Overfitting
+  위의 예처럼, 모델이 너무 복잡하게 되면 overfitting의 문제를 안게 된다. Overfitting occurs when you fit a model too closely to the particularities of the training set and obtain a model that works well on the training set but is not able to generalize to new data.
+
+Underfitting
+  반대로, if your model is too simple, then you might not be able to capture all the aspects of and variability in the data. Choosing too simple a model is called "underfitting"
+
+The more complex we allow our model to be, the better we will be able to predict the training data. However, if our model becomes too complex, we start focusing too much on each individual point in our training set, and the model will not generalize well to new data.
+
+따라서 "sweet spot"을 찾는 것이 중요!
+
+Relationship btw Model Complexity and Data size?
+  큰 데이터셋일수록 더 복잡한 모델을 세울 수 있게 해준다. 앞의 새 제품 예를 들어볼 때, 만약 "45살 이상의, 남성이고, 아이를 3명 이하로 가진 사람"의 조건에 부합하는 데이터가 10,000건 이상이 있다면, 실제로 저 모델은 overfitting 하지 않고 적당한 모델이 되는 것이다.

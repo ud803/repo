@@ -1,0 +1,51 @@
+1. Install "Virtual Box"
+  가상 머신을 사용하는 이유는 그 내부에서 어떠한 문제가 생기더라도 본체에는 영향을 끼치지 않기 때문이다. 계속해서 배울 내용들을 연습하다보면 잘못된 오류가 발생할 수 있지만, 이는 가상 머신으로만 한정 된다.
+  인터넷에서 많은 것을 다운로드 할 것인데, extra layer of protection을 갖는 것은 중요하다.
+
+  방법)
+    - 저장소에 해당 url 추가 (virtualbox는 공식 저장소에 없음)
+    - public key를 받아 연결시켜 줌
+    - sudo apt-get update로 리스트 동기화
+    - sudo apt-get install virtualbox-5.1
+
+
+2. Install Kali Linux
+  - Download Kali Linux 64 bit - ISO
+  - Oracle Virtual Box 실행
+  - 만들기 - 설정 - 가상CD 넣어주기
+
+  - 설치 과정
+      Live = external device에서 실행 & 변경 사항 저장 않음
+      Live USB persistence > 변경 사항이 저장
+      Live USB Encrypted persistence > 암호화 가능
+
+      이 과정에서는 Install을 한다 / 화면 크기를 바꾸기 위해선 guest addition을 설치해야함
+
+      NTFS partitions
+      ext4 partitions - a bit faster
+      항상 /(root partition)이 존재해야 한다!!
+      swap은 failsafe method 중 하나. ram 메모리가 부족하면 하드 드라이브를 빌려쓴다. 매우 느리지만 충돌을 막아줌
+
+      network mirror? -> No. 내가 업데이트 할 것이기 때문에.
+
+
+3. Network Connection
+  - VirtualBox - 장치에서 wifi 설정
+  - /etc/netowrk-config true로 설정
+  - (번외) 장치 -클립보드 공유 - 호스트에서 게스트로
+
+4. VB guest additions ( 게스트 확장 )
+  - kali linux로부터 package source 추가
+  - /etc/apt/sources.list 에 추가
+  - apt-get update && apt-get upgrade
+  - apt-get install -y dkms linux-headers-$(username -r)
+      dkms와 linux-header라는 두 개의 패키지 설치
+  - apt-get install -y virtual-box-guest-x11
+  - apt-get upgrade
+  - (VM) 장치 - 게스트 addition - 에러가 발생
+  - cd /media/
+  - ls; cd cdrom0/;
+  - cp VBox~.run /home/
+  - cd /home/; ls
+  - ./VBox~.run
+  - reboot;   init옵션도 있음. 하지만 reboot이 safer

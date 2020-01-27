@@ -1,0 +1,52 @@
+1. 앞서 살펴본 바와 같이 쉘은 쉘 세션이 진행되는 동안 모든 정보를 관리하는 환경을 유지한다. 쉘 환경에 저장된 데이터는 설정 프로그램에 의해 사용된다. 대부분의 프로그램은 환경설정 파일을 사용하지만, 일부 프로그램은 동작하기 위해 환경에 설정된 값을 찾아보기도 한다. 이러한 사실을 바탕으로 쉘 환경을 사용자에 맞게 설정해 보도록 하자.
+
+  printenv    : 환경 일부 또는 전체 출력하기 ( 환경변수만 출력 )
+                printenv USER
+
+  set         : 쉘 옵션 설정하기 (쉘 변수와 환경변수 출력)
+  export      : 다음 실행 프로그램에 환경 적용하기
+  alias       : 명령어 별칭 생성하기
+
+비록 bash에서는 구별하기 힘들지만 쉘은 환경에 두 가지 기본적인 형식을 저장한다.
+하나는 환경 변수고, 다른 하나는 쉘 변수다. 쉘 변수는 bash에 의해 저장된 작은 데이터고, 환경 변수는 기본적으로 그 밖의 모든 것이다.
+
+
+2. 시스템에 로그인하면 bash 프로그램이 시작되면서 시작 파일(startup files)이라고 하는 일련의 환경설정 스크립트를 읽는다. 이 시작 파일은 모든 사용자에게 공유되는 기본적인 환경설정 값을 규정한다. 이어서 개인 사용자의 환경을 정의하는 홈 디렉토리 내의 시작 파일이 구성된다.
+
+
+  1) 로그인 여부에 따른 쉘 환경
+  -로그인 쉘 세션 ; 가상 콘솔 세션이 시작할 때
+    /etc/profile    : 모든 사용자에게 적용되는 일반 환경설정
+    ~/.bash_profile : 개인 사용자 시작 파일. 일반 환경설정을 무시하거나 확장
+    ~/.bash_login   : 위 파일이 없으면 bash는 이 스크립트를 읽는다
+    ~/.profile      : 위 두 파일이 없으면 이 파일을 읽는다. 우분투와 같은 데비안 배포판에서는 이 파일이 기본이다
+
+  -비로그인 쉘 세션 ;일반적으로 GUI에서 터미널 세션을 실행할 때
+    /etc/bash.bashrc  : 모든 사용자에게 적용되는 일반 환경설정
+    ~/.bashrc         : 개인 사용자 시작 파일. 일반 환경설정을 확장하거나 무시
+
+    편집 후 반드시 source bashrc를 통해 업데이트 해줘야함!!
+
+
+3. 환경 편집
+  일반적인 규칙에 따라, 사용자의 PATH에 디렉토리를 추가하거나 부가적인 환경 변수를 정의하기 위해서는 .bash_profile 파일 (혹은 .profile) 내용을 수정해야 한다. 그 밖의 다른 것들은 .bashrc 파일에서 변경한다. 자신이 시스템 관리자가 아니고 시스템에 있는 모든 기본값을 수정할 필요가 없다면 홈 디렉토리에 있는 파일만을 편집하도록 한다.
+
+  nano bash.rc  : 커널 상
+  gedit bash.rc : 그래픽 구동
+
+
+4. bash 프로그램의 자세한 설명
+
+  if you open a shell or terminal (or switch to one), and it asks you to log in (Username? Password?) before it gives you a prompt, it's a login shell.
+  If it doesn't (like gnome-terminal), and lets you use it straight away, it's a non-login shell.
+  If you are a normal user of Ubuntu Desktop, the only login shell is…your desktop (you type a password to get in, right ;)? Well, technically it's a login shell that starts a GUI, but that's getting in to jargon. And yes, it will read the settings in .profile
+
+  The only time you (a normal user) will probably see a login shell that looks like a login shell is if you are having some problem with your desktop and you switch to a virtual terminal with the Ctrl+Alt+F1 shortcut.
+
+  The other general cases for having a login shell include:
+  accessing your computer remotely via ssh (or connecting locally with ssh localhost)
+  simulating an initial login shell with bash -l (or sh -l)
+  simulating an initial root login shell with sudo -i
+  or sudo -u username -i for another non-root user
+  authenticating as another non-root user with su - username (and their password)
+  using the sudo login command to switch user

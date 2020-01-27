@@ -1,0 +1,124 @@
+1. 시각화
+
+그래픽 파라미터의 기본 옵션은 par()함수를 통해 바꿀 수 있다.
+par()
+  par(mfrow=c(2,2))  #gives a 2x2 layout of plots
+  par(lend=1)        #gives "butt" line end caps for line plots
+  par(bg="cornsilk") #plots drawn with this colored bacground
+  par(xlog=TRUE)     #always plot x axis on a logarithmic scale
+  oldpar <- par(no.readonly=TRUE)
+  par(oldpar) #default (original) parameter settings restored
+
+plot()
+  plot(Height)
+  plot(Height, Volume)
+
+curve(expr, from, to, add = FALSE, ...)
+  expr: an expression written as a function of 'x'
+  from, to: the range over which the function will be plotted
+  add : logical; if 'TRUE' add to already existing plot
+    # 사실 curve도 plot함수를 호출함
+        curve(sin(x), from=0, to=2*pi)
+
+barplot(table)
+  명목형, 이산형 자료를 나타내기 위해 쓴다.
+  table형 자료를 인자로 받는다.
+
+hist(x, breaks="Sturges", prob=FALSE, main=paste("Histogram of", xname))
+  히스토그램을 그린다
+  x : a vector of values
+  prob : FALSE이면 빈도를, TRUE이면 상대빈도(확률)을 나타냄
+  break는 몇 개로 나눌건지를 나타낸다. 자세한 것은 문서 참조.
+
+stem(x, scale=2)
+  텍스트 기반 줄기-잎 표현을 보여준다.
+
+boxplot(x)
+  박스 그림을 보여줌, 비교하기 쉽다.
+
+ecdf(x)
+  x : vector of numerical values
+  EDF(empirical distribution function)의 값들을 만든다.
+
+qqnorm(), qqline()
+  normality를 확인하기 위해 쓰임
+    qqnorm(x)   # creates the NPP(Normal probability plot) for x
+    qqline(x)   # adds a reference line for the NPP
+
+그 외에도,
+pairs() : 페어플랏 (다차원에서 1by1으로 대응시킨 산점도)
+persp() : 3차원 그림
+pie()   : 파이차트
+qqplot(): quantile-quantile 차트
+ts.plot(): 시계열차트
+
+
+
+2. 수치 요약
+
+table() #주로 명목형 자료나 이산형 자료
+mean()
+median()
+fivenum()
+summary()
+min(), max()
+quantile()
+var(), sd()
+cov(), cor()
+
+
+
+
+2. 분포
+Prefix
+  d : density, mass function
+  p : CDF
+  q : percentile function(quantile)
+  r : random variable
+
+beta(shape1, shape2)
+binom(size, prob)
+chisq(df)
+unif(min, max)
+exp(rate=1)
+f(df1,df2)
+gamma(shape,rate)
+geom(prob)
+hyper(m,n,k)
+nbinom(size,prob)
+norm(mean,sd)
+pois(lambda)
+t(df)
+weibull(shape,scale)
+
+  x <- rnorm(100)     #simulate 100 standard normal RVs
+  w <- rexp(1000,rate=.1) # simulate 1000 from Exp(theta=10)
+  dbinom(3,size=10,prob=.25) #P(X=3) for X ~ Bin(n=10, p=.25)
+  pbinom(3,size=10,prob=.25) #P(X<=3)
+  dpois(0:2, lambda=4)       #P(X=0), P(X=1), P(X=2) for X~Poisson
+  pnorm(12,mean=10,sd=2)     #P(X<=12) for x~N(10,2^2)
+  qnorm(.75, mean=10, sd=2)  #3rd quartile of N(10,2^2)
+  qchisq(.10, df=8)          #10th percentile of dist.
+  qt(.95, df=20)             #95th percentile of t(20)
+  rbinom(20, size=10, prob=.2)# B(10,0.2)의 20회 관측 결과를 반환
+                              #반환값은 해당 사건이 몇 번 발생했는지!
+
+rnorm
+rexp
+rgamma
+rpois
+rweibull
+rcauchy
+rbeta
+rt
+rf
+rchisq
+rbinom
+rmultinom
+rgeom
+rhyper
+rlogis
+rlnorm
+rnbinom
+runif
+rwilcox

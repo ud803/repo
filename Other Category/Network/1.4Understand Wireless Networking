@@ -1,0 +1,38 @@
+1. Wireless Devices
+For a wireless network to work, all devices must have a wireless network adapter
+  -Connects to wireless access point(WAP) that is capable of sending receiving data wirelessly
+WAP then transmit data over a wire, such as an Ethernet cable. through a network to its final destination
+
+ 1) Wireless Network Adapters
+  Adapters enable connectivity btw devices and a WAP
+  Adapters work by translating bits into radio signals, which are then sent to a WAP
+  Adapters can come in many forms :
+    USB
+    internal adapter cards (most laptops)
+    external adapter cards
+    onboard adapters (motherboard)
+
+ 2) Wireless Access Points (WAP)
+  WAP can also come in many forms :
+    SOHO routers
+    dedicated WAPs connected to switches
+  WAP also work by translating bits into radio signals, which are then sent to or received from devices on a network
+
+ 3) Wireless Repeaters
+  Wireless networks are limited by how far a wireless signal can transmit
+  To adrs this problem, we use wireless repeaters
+  Repeaters are placed at the edge of a network to extend the signal range of the WAP
+  Repeaters read the signal coming from the WAP and repeat it to any devices on the network within its range and vice versa
+
+ 4) Wireless Bridges
+ Function the same way that wireless repeaters do
+ Bridges are able to connect devices and networks using different technologies(differnet standards) together
+ This is known as bridge mode
+
+
+2. Wireless Standards
+For wireless networks to function, all devices must use the same wireless networking standard
+There are a number of standards that define wireless networking
+IEEE802.11 or Wi-Fi, standards dictate the data transfer rate, connection frequency, and more
+
+1:22:48 networking tutorials for beginners

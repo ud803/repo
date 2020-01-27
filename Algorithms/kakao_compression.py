@@ -1,0 +1,4 @@
+'''
+https://tech.kakao.com/2017/11/14/kakao-blind-recruitment-round-3/
+압축
+'''

@@ -1,0 +1,35 @@
+1. | 2^3 - 3^2 |
+2. e^e
+3. 2.3^8 + log(7.5) - cos(pi/sqrt(2))
+4. A <- matrix(c(1,2,3,2,2,1,6,4,4,7,2,5), 3,4, byrow=T)
+   B <- matrix(c(1,3,5,2,0,1,3,4,2,4,7,3,1,5,1,2), 4,4, byrow=T)
+   find AB^-1 and BA^t
+5. The dot product of [2,5,6,7] and [-1,3,-1,-1]
+
+1. Generate the following sequences in R :
+  a. 1 2 3 1 2 3 1 2 3
+  b. 10.00000 10.04545 10.09091 10.13636 10.18182 10.22727 10.27273
+  10.31818 10.36364 10.40909 10.45455 10.50000
+  c. "1" "2" "3" "banana" "1" "2" "3"
+"banana"
+2. Using the scan() function, enter 10 numbers (picked at random between 1 and 100)
+into a vector called blahblah .
+3. Create a data frame called schedule with the following variables:
+coursenumber : the course numbers of your classes this semester (e.g. 329)
+coursedays :
+meeting days (either MWF, TR, etc.)
+grade :
+your anticipated grade (A, B, C, D, or F)
+4. Load in the stackloss dataset from within R and save the variables Water.Temp and
+Acid.Conc. in a data frame called tempacid .
+
+1. Simulate 20 observations from the binomial dist. with n=15, p=0.2
+2. Find the 20th percentile of the gamma dist. with a=2, theta =10
+3. Find P(T>2) for T~t8
+4. Plot the poisson mass function with lambda=4 over the range x=0~15
+5. Using monte carlo integration, approximate the following integral :
+  integral 0 to 2 : exp(x^3) dx
+  with n= 1,000,000
+6. simulate 100 observations from the normal dist. with mu=50, sd =4.
+Plot the empirical cdf for this sample and overlay the true cdf.
+7. Simulate 25 flips of a fair coin where the results are "heads" and "tails". (use sample() func)

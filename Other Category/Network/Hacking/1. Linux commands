@@ -1,0 +1,17 @@
+1. 기본 커맨드
+
+cd (change directory)
+ls (listing)
+pwd (print working directory)
+cp (copy)
+mv (move)
+cat
+less
+grep
+echo
+touch
+mkdir
+chown
+chmod
+rm
+man + help

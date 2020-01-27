@@ -1,0 +1,45 @@
+
+randomwalk = function(Islands, N) {
+current_pos = sample(1:length(Islands), 1)
+
+
+
+trajectory = c()
+population = c()
+for (i in 1:N){
+
+trajectory[i] = current_pos
+population[i] = Islands[current_pos]
+
+
+if( runif(1) < 0.5 )
+
+	if ( Islands[current_pos] <= Islands[current_pos-1] )
+		current_pos = current_pos - 1
+	else
+		if( runif(1) <= Islands[current_pos-1]/Islands[current_pos] )
+			current_pos = current_pos -1
+		else
+			current_pos = current_pos
+else
+	if ( Islands[current_pos] <= Islands[current_pos+1] )
+		current_pos = current_pos +1
+	else
+		if( runif(1) <= Islands[current_pos+1]/Islands[current_pos])
+			current_pos = current_pos +1
+		else
+			current_pos = current_pos
+
+}
+
+library(ggplot2)
+traj = data.frame(trajectory, TimeStep=c(1:N))
+
+p = ggplot(traj, aes(x=trajectory, y=TimeStep)) + geom_point(size=1) + geom_path()
+
+
+
+h = hist(population)
+}
+
+

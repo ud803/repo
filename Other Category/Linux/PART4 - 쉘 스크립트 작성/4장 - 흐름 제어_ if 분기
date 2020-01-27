@@ -1,0 +1,157 @@
+이전 장에서 우리는 권한 문제에 맞닥뜨렸다. 우리가 작성 중인 보고서 생성 스크립트가 실행될 때 사용자 권한에 따라 결과를 어떻게 조정할 수 있을까? 이 문제에 대한 해결책은 스크립트 내에서 테스트 결과에 따라 "방향을 바꾸는" 방법을 찾는 데 있을 것이다. 프로그래밍식으로 말하자면, 프로그램을 "분기"할 필요가 있다.
+
+
+1. If의 사용
+쉘을 사용하여 다음과 같이 로직을 짤 수 있다.
+
+    x=5
+    if [ $x = 5 ]; then
+      echo "x equals 5."
+    else
+      echo "x does not equal 5."
+    fi
+
+if의 사용법은 다음과 같은 구문을 따른다
+
+    if commands; then
+      commands1
+    elif commands; then
+      commands2
+    elif commands; then
+      commands3
+      .
+      .
+    else
+      commands
+    fi
+
+
+
+2. 종료 상태
+명령어들은 종료될 때 종료 상태(exit status)라는 값을 생성한다. 이 값은 0부터 255까지 사이의 정수로 명령어 실행의 성공 여부에 대한 정보를 나타낸다.
+일반적으로 0은 성공을 나타내고, 그 외의 다른 숫자는 실패를 가리킨다. 쉘은 종료 상태를 확인할 수 있는 매개변수를 제공한다.
+  ls -d /usr/bin
+  echo $? -- 0리턴
+
+  ls -d /bin/usr
+  echo $? -- 2리턴
+
+쉘 내부적으로 true 명령어는 항상 성공, false 명령어는 항상 실패를 의미한다.
+
+
+
+
+3. test의 사용
+if와 가장 흔하게 사용되는 명령어는 test이다. test로 다양한 검사와 비교 작업을 수행할 수 있는데 두 가지 형태로 쓰인다.
+  1)
+  test expression
+
+  2)
+  [expression]
+    위 express에는 명령어 성공 여부를 검사하는 표현식이 들어간다. test명령어는 이 표현식이 참이면 0, 만약 거짓이면 1의 종료 상태 값을 반환한다.
+
+    표현식을 사용할 때,
+      오류 출력은 >&2를 통해 표준 오류로 리다이렉션 해준다!
+      그리고 exit1을 통해 종료한다.
+
+    a. file 표현식
+    file1 -ef file2 두 파일은 동일한 incode번호를 가진다
+    file1 -nt file2 1이 2보다 최신이다
+    file1 -ot file2 1이 2보다 오래되었다
+    -b file         file이 존재하고 블록 특수 파일이다
+    -c              문자 특수 파일이다
+    -d              디렉토리이다
+    -e              존재한다
+    -f              일반 파일이다
+    -g              setgid가 설정되어 있다
+    -G              유효 그룹 ID의 소유다
+    -k              sticky bit를 갖고 있다
+    -L              심볼릭 링크다
+    -O              유효 사용자 ID의 소유다
+    -p              네임드 파이프다
+    -r              읽기전용이다
+    -s              파일 크기가 0보다 크다
+    -S              네트워크 소켓 파일이다
+    -t fd   fd는 터미널이 지정된 파일 디스크립터. 표준 입/출/오류의 리다이렉션 여부 확인
+    -u              setuid가 설정되어 있다
+    -w              쓰기가 가능하다
+    -x              실행이 가능하다
+
+
+    b. 문자열 표현식
+    string        string은 null이 아니다
+    -n string     string의 길이는 0보다 크다
+    -z string     string의 길이는 0이다
+    string1 = string2
+    string1 ==string2 같다
+    string1 != string2 다르다
+    string1 > string2 1은 2보다 뒤에 정렬된다
+    string1 < string2 1은 2보다 앞에 정렬된다
+
+
+    c. 정수 표현식
+    int1 -eq int2   둘은 같다
+    int1 -ne int2   둘은 같지 않다
+    int1 -le int2   1은 2보다 작거나 같다
+    int1 -lt int2   1은 2보다 작다
+    int1 -ge int2   1은 2보다 크거나 같다
+    int1 -gt int2   1은 2보다 크다
+
+
+
+4. 현대식 테스트
+bash의 최신 버전에는 test의 역할을 대신하는 합성 명령어를 지원한다
+
+  [[ expression ]]
+  (( 정수 테스트 ))
+
+    1) [[ expression ]]
+    이 명령식은 test의 모든 표현식을 지원하고,
+      string1 =~ regex의 정규식 표현을 지원한다.
+
+    if [[ "$INT" =~ ^-?[0-9]+$ ]]; then
+      ~
+
+    2) (( 정수 테스트 ))
+    (()) 명령식은 산술식의 참 여부를 결정한다. 이 명령은 산술식의 결과가 0이 아니면 참 값을 반환한다.
+
+
+5. 표현식 조합
+  test 명령과 합성 명령은 각각 논리 연산자가 다른데, 다음과 같다.
+
+  논리 연산   test    [[]],(())
+  AND       -a      &&
+  OR        -o      ||
+  NOT       !       !
+
+    ** int =~ ^-?[0-9]+$ 의 의미는 앞에 마이너스가 없거나 한 번 오고, 숫자가 많이 나온다는 말
+
+
+6. 제어 연산자
+bash는 분기를 할 수 있는 &&(AND) ||(OR) 연산자를 제공한다.
+  && 연산자를 사용하는 경우, com1과 com2가 모두 실행되면 com1이 성공했다는 것을 의미한다
+  || 연산자의 경우, com1과 com2가 모두 실행되면 com1은 실패했다는 것을 의미한다
+
+  ex)
+    mkdir temp && cd temp
+    두 번째 명령은 첫 번째 명령이 성공적으로 수행되어야만 실행된다
+
+    [ -d temp ] || mkdir temp
+    여기서 테스트가 실패해야만 디렉토리는 생성된다
+
+
+7. 읽기 권한
+
+report_home_space () {
+  if [[ $(id -u) -eq 0 ]]; then
+    cat <<- _EOF_
+            ..(All users)
+            _EOF_
+  else
+    cat <<- _EOF_
+            ..($USER)
+            _EOF_
+  fi
+  return
+    }
+id -u의 결과로, 슈퍼유저는 항상 0이며 나머지 사용자는 0보다 큰 수를 가진다!

@@ -1,0 +1,70 @@
+1. About Machine Learning
+Machine learning is about extracting knowledge from data. It is a research field at the intersection of statistics, artificial intelligence, and computer science and is also known as predictive analytics or statistical learning.
+
+In the early days of "intelligent" applications, many systems used handcoded rules of "if" and "else" decisions to process data or adjust to user input. However, using handcoded rules to make decisions has two major disadvantages.
+  1. Logic is specific to a single domain and task.
+  2. Designing rules requires a deep understanding of how a decision should be made.
+
+
+-Supervised learning
+The user provides the algorithm with pairs of inputs and desired outputs, and the algorithm finds a way to produce the desired output given an input. In particular, the algorithm is able to create an output for an input it has never seen before without any help from a human.
+  - Identifying the zip code from handwritten digits on an envelope
+  - Determining whether a tumor is benign based on a medical image
+  - Detecting fraudulent activity in credit card transactions
+
+-Unsupervised learning
+Only the input data is known, and no known output data is given to the algorithm. While there are many successful applications of these methods, they are usually harder to understand and evaluate.
+  - Identifying topics in a set of blog posts
+  - Segmenting customers into groups with similar preferences
+  - Detecting abnormal access patterns to a website
+
+-For both
+It is important to have a representation of your input data that a computer can understand. Often it is helpful to think of your data as a table. Each data point that you want to reason about is a row, and each property that describes that data point is a column. You might describe users by their age, their gender, when they created an account, and how often they have bought from your online shop.
+
+Each entity or row here is known as a "sample" (or data point) in machine learning, whil the columns - the properties that describe these entities - are called "features".
+
+Each algorithm is different it terms of what kind of data and what problem setting it works best for.
+
+
+
+
+2. Python
+Ptyhon has become the lingua franca for many data science applications. scikit-learn depends on two other Python packages. Numby and Scipy. For plotting and interactive development, you should also need matplotlib, iPython, and the Jupyter Notebook.
+
+$ pip install numpy scipy matplotlibs ipython scikit-learn pandas
+
+-scikit-learn
+In scikit-learn, data is usually denoted with a capital X, while labels are denoted by a lowercase y. This is inspired by the standard formulation f(x)=y. Moreover, we use a capital X because the data is a two-dimensional array (a matrix) and a lowercase y because the target is a one-dimensional array (a vector).
+
+-Jupyter Notebook
+Jupyter Notebook is an interactive environment for running code in the browser. It is a great tool for exploratory data analysis and is widely used by data scientists. While the Jupyter Notebook supports many programming languages, we only need Python. It makes it easy to incorporate code, text, and images. All of the code examples can be downloaded from GitHub.
+
+-NumPy
+NumPy is one of the fundamental packages for scientific computing in Python. It contains functionality for multidimensional arrays, high-level mathematical functions such as linear algebra operations and the Fourier transform, and pseudorandom number generators.
+In scikit-learn, the NumPy array is the fundamental data structure. scikit-learn takes in data in the form of NumPy arrays. Any data you're using will have to be converted to a NumPy array. The core functionality of NumPy is the ndarray class, a multidimensional array.
+
+-SciPy
+SciPy is a collection of functions for scientific computing in Python. It provides advanced linear algebra routines, mathematical function optimization, signal processing, special mathematical functions, and statistical distributions. The most important part of SciPy for us is scipy.sparse: this provides sparse matrices, which are another representation that is used for data in scikit-learn. Sparse matrices are used whenver we wnat to store a 2D array that contains mostly zeros.
+
+-matplotlib
+matplotlib is the primary scientific plotting libary in Python. It provides functions for making publication-quality visualizations such as line charts, historgrams, scatter plots, and so on.
+
+-pandas
+pandas ia a Python library for data wrangling and analysis. It is built around a data structure called the DataFrame that is modeled after the R DataFrame. Simply put, a pandas DataFrame is a table, similar to an Excel spreadsheet. pandas provides a great range of methods to modify and operate on this table. In particular, it allows SQL-like queries and jins of tables.
+
+
+
+3. Test data
+We cannot use the data we used to build the model to evaluate it. This is because our model can always simply remember the whole training set, and will therefore always predict the correct label for any point in the training set.
+This is usually done by splitting the labeled data we have collected into two parts. One part of the data is used to build our machine learning model, and is called the "training data or training set."" The rest of the data will be used to assess how well the model works; this is called the "test data, test set, or hold-out set."
+
+
+
+4. Look at your data
+Before building a machine learning model it is often a good idea to inspect the data to see if the task is easily solvable without machine learning, or if the desired information might not be contained in the data.
+Additionally, inspecting your data is a good way to find abnormalities and peculiarities.
+One of the best ways to inspect data is to visualize it. One way to do this is by using a scatter plot. Unfortunately, computer screens have only two dimensions, which allows us to plot only two (or maybe three) features at a time. One way around this problem is to do a "pair plot", which looks at all possible pairs of features. However, a pair plot does not show the interaction of all of features at once.
+
+
+5. Build a model
+Now we can start building the actual machine learning model. There are many classification algorithms in scikit-learn that we could use. 

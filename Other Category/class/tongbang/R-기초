@@ -1,0 +1,180 @@
+-기초 명령어
+  getwd() : 작업공간확인
+  setwd() : 작업공간설정
+
+  ls() : 저장된 모든 변수를 보여준다
+    ls(pat ="m")  : pattern에 속하는 자료이름을 불러냄
+    ls(pat = "^m")
+    ls.str() : 오브젝트 디테일 (변수종류 같은 것) 출력
+    ls.str(pat="M", max.level=-1)
+  rm(x)
+    rm(list=ls()) : delete all the objects
+    rm(list=ls(pat="^m"))
+  mode(x) : 오브젝트의 타입 반환
+
+  mydata = read.table("data.dat")
+  mydata = scan("data.dat", what=list("", 0, 0))
+  mydata = read.fwf("data.txt", widths=c(1,4,3))
+  cat(x) : ??
+  z = scan()
+
+
+  help(function)
+  ?function
+
+  apropos("keyword") : keyword가 포함된 함수를 검색함
+
+
+-행렬 연산
+  matrix : 주어진 값으로 행렬을 만든다.
+
+  matrix(data = NA, nrow = 1, ncol = 1, byrow = FALSE)
+    byrow는 행순으로 채울 것인지, 열순으로 채울 것인지 지정
+  matrix()는 1행 1열, NA(Not Available) 데이터를 가지는 디폴트 행렬
+
+  A <- matrix(a, nrow=2, ncol=4, byrow=F)
+  A <- matrix(a, 2, 4)
+
+  dim() : 매트릭스의 차원 반환
+  as.matrix() : 각 인자를 행렬로 통합
+  %*% : 행렬끼리의 곱을 표현 -> 벡터에 쓰면 (1,1)항이 점곱이 된다.
+  t() : transpose
+  det() : 정방형 행렬의 판별식
+  solve() : 역행렬을 구하거나, 선형 연립 방정식의 해를 구함
+  eigen() : 고유값과 고유벡터 계산
+
+
+-수 연산
+  sqrt()
+  abs()
+  sin(),cos(),tan()
+  pi
+  exp(),log()
+  gamma()
+  factorial()
+  choose(a,b)
+  log(x, base = exp(1))
+  log10(x)
+  log2(x)
+  log함수 안에 여러 벡터와 행렬을 넣어도 된다.
+
+
+- 벡터 연산
+
+  c() : make vector
+    dieroll <- c(2,5,1,6,5,5,4,1)
+    대입 연산자로는 <- 또는 =를 사용한다!
+    Dieroll != dieroll  *R은 대소문자를 구분한다!
+
+  length() : 벡터의 길이 반환
+  sum() : 벡터의 합 반환
+  prod() : 벡터의 곱 반환
+  cumsum(), cumprod() : 각 행에서의 누적 합과 곱 반환, 결과값도 벡터
+  sort() : 정렬
+  diff(vector, lag = a) : 해당 벡터에서 0 인덱스와 0+a 인덱스를 비교하여 차례대로 비교해나감, 결과값도 벡터
+
+
+
+3. 데이터 가져오기
+
+mykids <- c("Stephen", "Christopher")  #put text in quotes
+
+colon 연산자
+  1:9     1부터 9
+  1.5:10  1.5부터 1씩 9.5까지
+  prod(1:8)로 응용 = factorial(8)
+
+seq()
+  seq(1,5)
+  seq(1,5,by=.5)
+    # = seq(1,5,5)와 같음
+  seq(1,5,length=7) /길이 7만큼 쪼개는 간격을 찾아서 자동 쪼갬
+
+sequence(a:b)
+  1부터 a까지, 1부터 b까지 순차적으로 벡터 생성
+  a = b이면 1부터 a까지
+
+gl(k, n)
+  k개의 숫자를 n개씩 반복함
+  gl(2, 6, label=c("Male", "Female"))
+
+expand.grid()
+  가능한 모든 조합을 data frame으로 만듦
+  expand.grid( h=c(60,80), w=c(100,300), sex=c("Male", "Female"))
+
+rep()
+  rep(10,10) : 10을 10번 반복
+  matrix(rep(0,16), nrow=4)
+
+scan()
+  x <- scan()   # 디폴트로 숫자만 받음, 공백 받으면 끝냄
+  x <- scan(what=?) #?에는 logical(), integer(), numeric(), character()등이 들어감
+  x <- scan("C:/passengers.txt") 처럼 파일을 불러올 수도 있음
+    # file.choose()와 같다.
+  x <- scan("http://www..") #인터넷으로부터 자료 받을 수 있다.
+  stocks <- read.csv("a.dat", header=T)
+
+
+4. 데이터 프레임(a data frame)
+  *데이터프레임의 모든 열은 같은 길이를 가져야 한다.
+  1)
+    new.data <- data.frame()  #빈 데이터 프레임 생성
+    new.data <- edit(new.data) #내용 수정
+  2)
+    new.data <- data.frame()
+    fix(new.data)             #바뀐 내용 수정
+
+  car.dat <- data.frame(passengers, seatbelt)
+      #벡터가 각 열에 저장!
+
+  해당 데이터 프레임의 변수에 접근하고 싶으면 $기호를 쓴다.
+    trees$Height
+  혹은 행렬 표현을 통해 쓴다
+    trees[4,3]  trees[4,]
+  매번 쓰는 게 귀찮으면, 변수를 아예 search path에 붙일 수 있다.
+    attach(trees)
+    search()를 통해 서치 패스에 있는 목록을 볼 수 있음
+    detach()를 통해 제거
+
+  attributes(trees) : 어떤 오브젝트라도 그 특징을 나열
+
+  Height[Height>75] : 자체적으로 조건문을 걸어서 나열
+
+
+5.데이터셋
+R은 자체적으로 데이터셋을 보유하고 있다.
+
+  data()    # 데이터셋 목록 출력
+  data(trees) # 데이터셋 열기
+
+  a <- read.table(file.choose(), header=T) : 맨 첫줄을 헤더로 사용하면 T
+
+6. 도표 그리기
+
+    x11() : 이전의 그림파일이 지워지지 않도록함
+    plot(times,stocks, xlab="", ylab="", main="", xlim=c(0,10), ylim=c(0,10), type="l")
+    ts.plot(stocks) 시계열
+    plot에 l을 추가하면 시계열과 같아진다
+
+    barplot(table(club), xlab="", ylab="", main="")
+
+    pie(table(club), xlab="", ylab="", main="")
+
+
+    description <- function(x) {
+    mx=mean(x)
+    se=sd(x)/sqrt(length(x))
+    med=median(x)
+    mode = as.numeric(names(which.max(table(x)))
+    sx=sd(X)
+    vx=var(x)
+    kurt=mean((x-mean(x))^4/(mean((x-mean(x))^2))^2-3
+    skew=mean((x-mean(x))^3)/(mean((x-mean(x))^2))^1.5
+    range=max(x)-min(x)
+    cat("column1", '\n", '평균", mx, "\n",
+    표준오차 se
+    중앙값
+    ...
+    ..
+    }
+    description(body)

@@ -1,0 +1,163 @@
+문자열과 수는 스칼라 변수로 알려진 변수들이다. 여기서는 복수 값을 지닌 배열이라는 데이터 구조를 살펴볼 예정이다.
+
+1. 배열이란
+배열은 하나 이상의 값을 가지고 있는 변수다.
+배열은 원소라고 부르는 셀들을 가지고 있고, 각 원소들은 데이터를 가지고 있다.
+각 배열 원소는 인덱스 혹은 첨자라 불리는 주소를 사용하여 접근할 수 있다.
+
+대부분의 프로그래밍 언어가 다차원배열을 지원하지만, bash에서는 제한적으로 단일 배열만 제공한다. 배열은 bash버전 2에서 처음으로 지원했지만, 원조 유닉스 쉘 프로그램인 sh는 배열을 지원하지 않는다!
+
+2. 배열 생성
+  a[1]=f00
+  echo ${a[1]}
+
+배열은 또한 declare 명령어로도 생성할 수 있다.
+
+  declare -a a
+
+
+3. 값 할당
+값은 두 방식 중 하나로 할당할 수 있다.
+  name[subscript]=value    -단일 할당
+  name=(value1 value2 ...) -복수 할당
+  name=([0]=value1 [1]=value2 ...) - 복수 할당2
+
+4. 배열 연산
+스크립팅에는 배열의 삭제, 크기 확인, 정렬 등과 같은 많은 응용이 있다.
+  1)배열의 모든 내용 출력 - @, *
+
+    animals=("a dog" "a cat" "a fish")
+    for i in ${animals[*]}; do echo $i; done
+    for i in ${animals[@]}; do echo $i; done
+    for i in "${animals[*]}"; do echo $i; done
+    for i in "${animals[@]}"; do echo $i; done
+
+    @,*
+    a
+    dog
+    a
+    cat
+    a
+    fish
+
+    "*"
+    a dog a cat a fish
+
+    "@"
+    a dog
+    a cat
+    a fish
+    인용되기 전까지 둘은 동일하게 동작한다.
+    인용 후에,
+      * 표기는 배열의 내용을 포함한 한 단어를 반환하는 반면,
+      @ 표기는 실제 내용인 세 단어를 결과로 출력한다.
+
+
+5. 배열 원소 수 확인
+  매개변수 확장을 사용하여 문자열 길이를 찾는 것과 마찬가지로 배열 원소의 개수를 확인할 수 있다.
+
+    a[100]=foo
+    echo ${#a[@]} # number of array elements
+    echo ${#a[100]} # length of element 100
+
+  여기서 배열에 하나의 원소만 들어가는데, (0-99)를 빈 값으로 초기화하고 카운팅하는 다른 언어와는 다른 방식의 동작이다.
+
+
+6. 배열 내의 사용된 첨자 검색
+  bash는 배열의 첨자 할당에서 공백을 허용한다. (즉, 중간을 건너 뛰고 할당이 가능). 따라서 종종 실제로 존재하는 원소를 확인하는 데 다음은 매우 유용하다.
+
+      ${!array[*]}
+      ${!array[@]}
+
+  array는 배열 변수의 이름
+
+      foo=([2]=a [4]=b [6]=c)
+      for i in "${foo[@]}"; do echo $i; done
+        # a \n b \n c
+      for i in "${!foo[@]}"; do echo $i; done
+        # 2 \n 4 \n 6 -첨자 출력
+
+
+7. 배열 끝에 원소 추가
+  쉘에서 += 할당 연산자를 사용하여 자동적으로 배열의 끝에 값을 추가할 수 있다.
+
+      foo=(a b c)
+      echo ${foo[@]}    # a b c
+      foo+=(d e f)
+      echo ${foo[@]}    # a b c d e f
+
+
+8. 배열 정렬
+  쉘은 배열 정렬을 직접 지원하지는 않지만, 코딩으로 간단히 실행할 수 있다.
+
+    #!/bin/bash
+
+    # array-sort : Sort an array
+
+    a=(f e d c b a)
+    echo "Original array: ${a[@]}"
+    a_sorted=($(for i in "${a[@]}"; do echo $i; done | sort))
+    echo "Sorted array:   ${a_sorted[@]}"
+
+
+9. 배열 삭제
+  배열 삭제를 위해서 unser 명령어를 사용한다.
+
+  unset foo       -- 배열 제거
+  unset 'foo[2]'  -- 특정 원소 제거
+
+  그리고 첨자의 사용 없이 배열 변수를 참조하거나, 빈 값을 사용하면
+  자동적으로 배열 원소 0에 할당이 된다!
+
+  foo=
+  foo=A
+
+
+
+쉘 프로그래밍에서 배열 기능 전체가 잘 활용되지는 않는다. 전통적인 유닉스 쉘 프로그램들은 배열에 대한 지원이 부족하기 때문이다.
+배열과 루프는 태생적으로 관련이 있고 주로 함께 사용된다. 반복문의 형식은 특히 배열 첨자를 계산하기에 알맞다!
+
+    for (( expr1; expr2; expr3))
+
+
+
+
+
+** 예제
+
+    #!/bin/bash
+
+    # hours : script to count files by modification time
+
+    usage () {
+            echo "usage: $(basename $0) directory" >&2
+    }
+
+    # Check that argument is a directory
+    if [[ ! -d $1 ]]; then
+            usage
+            exit 1
+    fi
+
+    # Initialize array
+    for i in {0..23}; do hours[i]=0; done
+
+    # Collect data
+    for i in $(stat -c %y "$1"/* | cut -c 12-13); do
+            j=${i/#0}
+            ((++hours[j]))
+            ((++count))
+    done
+
+
+    # Display data
+
+    echo -e "Hour\tFiles\tHour\tFiles"
+    echo -e "----\t-----\t----\t-----"
+    for i in {0..11}; do
+            j=$((i + 12))
+            printf "%02d\t%d\t%02d\t%d\n" $i ${hours[i]} $j ${hours[j]}
+
+    done
+
+    printf "\nTotal files = %d\n" $count

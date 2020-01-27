@@ -1,0 +1,166 @@
+# Graphics
+# 교재 추천 - R Graphics Cookbook
+
+install.packages("mlbench")
+library(mlbench)
+data(Ozone)
+
+
+
+###1. 판 그리기
+par(mfrow=c(#row, #col))
+
+
+
+###2. PLOT
+plot(Ozone$V8, Ozone$V9)
+
+plot(x, y, xlab, ylab, main, pch, cex ,col, xlim, ylim)
+  xlab, ylab : a title for the x, y axis
+  main : an overall title for the plot
+  xlim, ylim : range of the x, y axis
+  pch : symbol for scatters
+    미리 할당된 모양으로 하거나 (숫자에 할당)
+    "" 따옴표 안의 text로 대체할 수 있음!
+  cex : size of scatters
+  col : color of scatters
+    이름이나 ("blue", "orange")
+    16진수 ("#FF0000")
+    col.axis = "blue" #축의 색
+    col.lab  = "green"#라벨 색
+    col.main = "blue" #메인 색
+
+  type  # plot type
+    "p" for points,
+    "l" for lines,
+    "b" for both,
+    "o" for both ‘overplotted’,
+    "h" for ‘histogram’ like (or ‘high-density’) vertical lines,
+    "s" for stair steps,
+    "S" for other steps, see ‘Details’ below,
+
+  lty   #linetype
+    0 = blank
+    1 = solid (default)
+    2 = dashed
+    3 = dotted
+    4 = dotdash
+    5 = longdash
+    6 = twodash
+
+
+
+###3. 점, 선 추가
+points(x,y) # 새로운 점, 선..을 추가 (syntax는 같다)
+#하지만 기존 plot과 범위가 다를 경우가 있기 때문에 아래처럼 먼저 설정해주는게 좋다.
+plot(NULL, xlim = c(0,5), ylim = c(0,10))
+
+
+
+###4. 텍스트 추가
+text(x,y, labels, ads)
+  labels = text to be written (def = row name)
+  adj = one or two values which specify the x and y adjustment of the labels
+  (location)
+text(5, 5, "B", adj=c(0,1))
+text(sample$speed, sample$dist, rownames(sample), adj=c(0,0))
+
+
+
+###5. 범례 추가
+legend(x, y=NULL, legend, ...)
+  x : the x coordinates of legend (or bottom, top, left, right, center)
+  legend : character to appear in the legend
+
+legend("topright", legend = c("Sepal", "Petal"), pch = c(20, 10), col = c("black", "red"), bg = "gray")
+
+
+
+###6. 히스토그램 & 파이 & 막대 차트
+hist(x, breaks, freq, ...)
+  x : a vector of values
+  freq : TRUE = frequency, FALSE = density
+
+plot(density(iris$Sepal.Width))
+  #히스토그램은 break에 따라 모양이 바뀔 수 있기 때문에
+  #이 방법이 좀 더 정확하다.
+
+
+
+data(cars)
+plot(cars, type='l')
+#그림의 수직선은  measurement error 이다.
+
+apply(cars, 2, mean) # 모든 측정 값에 대한 mean임
+tapply(cars$dist, cars$speed, mean) #Group별로 Object의 mean을 구함! (중복제거)
+plot(tapply(cars$dist, cars$speed, mean))
+
+
+
+
+
+
+
+# Clustering Analysis
+
+> making group based on similar characteristics
+  # customers into segments
+  # surveys into similar categories
+> does not have answers
+> so the prediction accuracy is not that good
+
+cluster : a collection of data objects (unsupervised classification)
+
+좋은 clustering
+  - high intra-class similarity
+  - low inter-class similarity
+
+
+
+### K-Means Clustering Method ( K = # of cluster) ###
+  1. (Randmly) Classify customers into K subsets
+  2. Set the center points and calculate the seed points
+  3. Reassign each point to the nearest seed point
+  4. Iterate through 2-4 until no more moves occur
+
+kmeans(x, centers, nstart)
+  x : numeric matrix of data
+
+  centers : either the number of clusters or a set of initial cluster centers. If a number, a random set of rows in x is chosen as the initial centers. 숫자가 늘어나면 일반적으로 비용이 늘어난다.
+
+  nstart : if centers is a number, how many random sets to choose?
+          (20번반복, 값이 클수록 결과가 더 robust하다.)
+
+  정확도는 BtwSS/TotalSS 으로 평가한다.
+
+
+Example.
+
+1) Data Exploration
+plot(iris$Petal.Width[1:50], iris$Petal.Length[1:50], pch = 16, col = "red", xlim=c(0,3),ylim=c(0,8))
+points(iris$Petal.Width[51:100], iris$Petal.Length[51:100], pch = 16, col = "blue")
+points(iris$Petal.Width[101:150], iris$Petal.Length[101:150], pch = 16, col = "green")
+
+2) Clustering
+irisCluster <- kmeans(iris[, 3:4], 3, nstart = 20)
+irisCluster
+  Cluster means : 각 중심좌표
+  Clustering vector : 결과값 (label)
+
+
+table(irisCluster$cluster, iris$Species)
+  ?? 무슨문법
+
+iris[,6] <- irisCluster$cluster
+
+
+##### When we don't know the number of clusters
+#### WithinSS 나타내주는 그래프
+mydata = iris[,3:4]
+wss <- (nrow(mydata)-1)*sum(apply(mydata,2,var))
+
+for (i in 2:15) wss[i] <- sum(kmeans(mydata, centers=i)$withinss)
+plot(1:15, wss, type="b", xlab="Number of Clusters",
+ylab="Within groups sum of squares",
+main="Assessing the Optimal Number of Clusters with the Elbow Method",
+pch=20, cex=2)

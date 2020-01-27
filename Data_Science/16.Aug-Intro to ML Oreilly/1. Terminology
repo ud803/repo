@@ -1,0 +1,95 @@
+# 회귀 분석 (regression analysis)
+  회귀분석은 관찰된 연속현 변수들에 대해 두 변수 사이의 모형을 구한뒤 적합도를 측정해 내는 방법이다. 통계적 예측에 이용될 수 있지만, 그 가정의 적합도의 판단은 연구자에게 달려 있다.
+  하나의 종속변수와 하나의 독립변수 사이의 관계를 분석할 경우 단순회귀분석, 하나의 종속변수와 여러 독립변수 사이의 관계를 분석할 경우 다중회귀분석 이라고 한다.
+
+# feature engineering (34p)
+  각 feature 뿐만 아니라, feature 사이의 곱 또한 또 하나의 feature로서 설정하는 것
+
+
+# Well-posed problem(우량조건문제)
+  Jacques Hadamard는 물리적 현상에 대한 수학적 모델은 다음과 같은 속성을 갖는다고 했다.
+    1) 해가 존재하고,
+    2) 그 해가 유일하고,
+    3) 해의 모습이 초기의 조건에 따라 계속 변한다.
+
+  이러한 well-posed problem의 예로는 라플라스 방정식과 열 전도 방정식 등이 있다. 이것들은 '자연' 현상으로서 이를 설명할 모델들이 있다.
+
+  이와 반대로 저 조건을 만족하지 않는 문제들을 ill-posed(불량조건)이라고 한다.
+  역문제들이 종종 불량조건인데, 열 전도를 예로 들면 마지막 데이터로부터 이전의 수치를 추론하는 것은 우량조건이 아니다. 왜냐하면 그 해가 마지막 데이터에 매우 민감하기 때문이다.
+
+  연속 모델은 수학적 해를 얻기 위해 종종 이산으로 분류되어야 한다. 이 때, 불안정이 발생할 수 있다.
+
+  만약 어떤 문제가 우량조건이라면, 안정적인 알고리즘을 통해 해결할 수 있을 확률이 높다. 우량이 아니라면, 수리적 처리를 위해 다시 가공되어야 한다. 보통 이러한 가공은 추가적인 가정을 통해 이루어진다. (smoothness of solution) 기 과정은 regularization(정규화)라고 알려져 있다.
+
+
+http://www.chioka.in/differences-between-l1-and-l2-as-loss-function-and-regularization/
+
+L1, L2 개념은 에러 함수와 정규화에서 모두 쓰인다. 아래서 살펴보자.
+
+# Error function
+  L1 loss function
+  S = sigma( | yi-f(xi) | )
+
+  L2 loss function
+  S = sigma(yi-f(xi))^2
+
+  L1  Robust            Unstable solution   Possibly mtp solutions
+  L2  Not very robust   Stable Solution     Always one solution
+
+
+  robustness는 다음을 의미한다 :
+    L1(Least absolute deviation)은 robust하기 때문에 많은 영역에서 적용된다. L1은 데이터의 특이값에 면역이 되어있기 때문이다. 따라서 특이값들이 안전하고 효과적으로 무시되어야 하는 연구에 적합하다. (절대값이기 때문에 무시되는 것 같다)
+
+    L2(Least squares error)는 모든 특이값을 찾아내고 주의해야 하는 연구에서 더 적합하다. 왜냐하면 에러를 제곱하기 때문에, 그 값이 증폭되기 때문이다. (L1에 비해) 만약 특이점이 발생한다면, 이 모델은 이 하나의 특이점의 에러를 줄이기 위해 모델을 바꿀 것이다. 다른 데이터들의 에러는 매우 작기 때문이다. (다른 일반 데이터들을 댓가로 말이다.)
+
+
+  stability는 다음을 의미한다 :
+    L1 방법의 불안정성은 다음을 의미한다. 한 데이터에 작은 수평적 조절이 있다면, 회귀선은 더 크게 움직인다는 것이다.
+    L2에 비해 L1이 더 많이 움직인다 (더 불안정하다)
+
+
+# Regularization(정규화)
+  정규화란, 불량조건문제나 overfitting을 방지하기 위해 추가적인 정보를 들여오는 과정이다.
+  머신 러닝에서 overfit을 방지하기 위해 사용하는 아주 중요한 기법이다. 수학적으로 말하면, '정규화' 항을 추가하여 모델의 계수(w)들이 완벽하게 데이터에 맞지 않도록 만들어주는 것이다. L1과 L2의 차이점은, L2는 가중치의 제곱의 합이지만, L1은 가중치의 합이다.
+
+  L1
+  -Computational inefficient on non-sparse cases
+  -Sparse outputs
+  -Built-in feature selection
+
+  L2
+  -Computational efficient due to having analytical solutions
+  -Non-sparse outputs
+  -No feature selection
+
+  Sparsity는 다음을 의미한다 :
+    행렬이나 벡터에서 아주 적은 수의 항만이 non-zero라는 것. L1놈은 많은 계수가 0이기 때문에 sparse하다고 말한다.
+
+  Computational efficiency :
+    L1놈은 분석 능력이 없다. L2는 있다. 따라서 L2놈의 해가 잘 계산될 수 있다. 하지만, L1은 sparsity 특성을 갖고 있기 때문에, sparse 알고리즘과 잘 어울릴 때 계산이 효율적이다.
+
+
+
+# Bias-variance tradeoff (dilemma)
+  BV tradeoff란, supervised learning이 트레이닝셋을 넘어 일반화하는 것을 방해하는 두 가지의 에러를 동시에 줄이려고 할 때 발생하는 문제이다.
+
+  is the problem of simultaneously minimizing two sources of error that prevent supervised learning algorithms from generalizing beyond their training set.
+
+  편향-분산 트레이드오프는 지도 학습에서 아주 중요한 문제이다.
+  이상적으로, 우리는 트레이닝셋의 규칙을 잘 잡아내면서도 보이지 않는 새로운 데이터에 잘 들어맞는 모델을 원한다. 하지만 이 둘을 동시에 하는 것은 불가능하다.
+  분산이 높은 알고리즘은 트레이닝셋을 잘 반영할 수 있지만, 노이즈에 오버핏하는 경향이 있다.
+  반대로, 편향이 높은 알고리즘은 더 간단한 모델을 만들지만, 트레이닝셋을 잘 반영하지 못할 수 있다.
+
+
+  편항-분산
+    1) bias
+    학습 알고리즘에서 잘못된 가정을 의미한다. 높은 편향은 알고리즘이 feature와 target 사이의 유관한 관계를 놓치도록 한다. (underfitting)
+
+    2) variance
+    분산은 트레이닝셋의 작은 변화에 대한 민감도를 나타낸다. 분산이 높으면 알고리즘이 트레이닝셋에 있는 임의의 노이즈까지 모델화 해버릴 수 있다. (overfitting)
+
+  bias-variance decomposition은 학습 알고리즘의 "기대 일반화 오류(expected generalization error"를 bias, variance, irreductible error 세 가지의 합으로 분해하는 것이다.
+
+    3) irreductible errors : noise in the problem itself
+
+  이러한 tradeoff는 모든 종류의 supervised learning에 적용된다!

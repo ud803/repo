@@ -1,0 +1,68 @@
+1. Ethical Hacking
+  Hacking : Having any system (computer, digital, ...) do what I intend to do
+  Ethical : Have permission to do it.
+
+  This course :
+    ability to do some serious damage! but never try it!
+    network penetration, router compromisation..
+
+
+2. Prerequisites
+  : Fedora20, Kali Linux, working wireless card
+
+Windows : anonymity level이 매우 낮다
+
+
+
+3. Basic Terminology
+
+
+White hat hackers : activities are within the confines of law
+                    pen testers, ethical hackers
+Grey hat hackers  : activites are bordering btw legal and illegal
+Black hat hackers
+footprinting      : Information gathering - digital, not digital
+
+DoS(just you)
+  Denial of Service, "Childish Attacks" easy to perform
+DDoS(mtp people)
+  perform a certain amount of request,making the site inaccessible, even though you haven't broken any passwords. Attack itself is not that hard. should infect romputers in two ways
+    1) RATS(Remote administration tools)
+      RATS itself is not some sort of hacks. Use it in e-mails, zip files to convert computer into your slaves. It anonymizes you in great deal.
+    2) FUD(Fully Undetectable - anti-virus cannot detect)
+
+Rootkit
+  A tool basically which you install onto an operating system. It is able to hide running processes from the system itself. 작업관리자를 켜도 해당 프로세스는 보이지 않는다. Kernel에서 온 요청을 가로챔.
+
+Phishing
+  When you apply some sort of bait, you pull it. DNS servers gets changed on your routers. All the requests you make get redirected. One of the ways to detect this, protocol이 https가 아닌 http.
+
+SQL injections
+  passing SQL queries to HTTP requests. If they are not properly formatted by the PHP code on the server side this can present a serious problem.
+
+VPN(Virtual Private Networks)
+  Ways of anonymizing yourselves. You can route all traffic through this VPN provider, and all the traffic will be heavily encrypted.
+
+VPS(Virtual Private Servers)
+  폐쇄적인 가상 서버
+
+Proxy
+  Less reliable way of staying anonymous. Socks5Proxies.
+
+Tor
+  free open source. much faster than proxies. gives you ability to torify your applications. routing traffic through certain routes and using certain routers on the internet. can be anonymous for a large extent.
+
+Tor Browser
+  Can access dark, hidden websites that have .onion urls. They are not accesses by normal browsers.
+
+Key Loggers
+  Tools to steal credentials and extract information. Today, key loggers are extended to the extend that they have hundred options or so. (record keystrokes)
+
+Terminal
+  An interface for you that allows you to control operating system. Linux is very powerful!
+
+Firewall
+  Linux firewall is open source, it has large amount of options. You can do anything you want.
+
+Reverse-shells
+  There are hundreds of reverse-shells out there. Reverse-shells are some kind of program that opens a shell in someone's computer reversely to you. So even though you are nowhere near it, you can take control of the computer. To attack a private computer, router is the first target.

@@ -1,0 +1,17 @@
+#2017-2 통계방법론 (김병수교수) 9월11일 R 유인물
+x=seq (-5,5,0.01)
+y1=(1/sqrt(2*pi))*exp(-x^2/2)
+plot(x,y1)
+plot(x,dnorm(x))
+help(plot)
+par(mfrow=c(2,1))
+# 윗 방향 화살표를 계속하여 누름으로써 이미 수행한 명령문을 재 수행할 수 있습니다. 
+plot(x,y1)
+plot(x,dnorm(x),col=6) # 곡선의 색깔을 다른 색으로 표시
+qnorm(.95)
+hist(rnorm(1000), breaks=100)
+hist(rnorm(10000), breaks=100)
+dbinom(3,10,0.3) # B(10,0.3)에서 Pr(X=3)
+ppois(3,6) # Po(6)에서 Pr(X<=3)
+rpois(30,7) #Po(7)에서 난수 30개를 생성
+sample(0:9,6,replace=T)  # 6자리 숫자의 난수 생성

@@ -1,0 +1,173 @@
+# Bain Digital : Data Strategy
+
+"Contributory Database"
+
+강희석, Hewie Kang, partner of Bain & Company, Korea
+
+1)
+Tesla ; 온라인 게임 시장처럼 특정 옵션을 특정 기간동안 판매함
+  ex) 성능 향상 1달 -> 지불해야 함
+
+Adidas ; artifical intelligence -> automation of customization
+
+Digital :
+  1) Hyperconnectivity
+  2) Proliferation of data
+    : 9 out of 10 has plenty of data
+    : but once they decide to use it, they feel lack of it
+    : use first ! just think of how you're gonna make business work
+    : then, find what kind of data you actually need
+  3) Leaps in computing technology
+
+
+2)
+Why is Amazon better than Walmart?
+  : consumers know that Walmart offers the cheapest product.
+    Conversion rate -> 방문 시 구매로 이어질 확률
+      Amazon.com : 35 %
+      Walmart.com : 15%
+    Why? -> conveninence, loyalty
+
+"Agile approach"
+  speed matters more than the direction!
+
+"Aligned vision"
+  Aligned vision btw Data and Business
+
+"Consumer Panel Data"
+  요새는 서베이보다도 소비자들의 데이터가 더 신뢰된다.
+
+
+3)
+Digital is changing the way businesses interact with their customers.
+
+"Right Data Architecture"
+
+"3G Capital" -> Notorious for Cost Cutting
+
+데이터를 관리하지 않으면 visibility가 없다.
+  ex) Other costs in Other costs section!!!
+
+Create the visibility of your cost.
+Make a tunnel from cost to investment through data.
+
+
+4)
+P&G: Market Intelligence팀이 원하는 데이터를 다루도록 했음.
+  functional leader들로부터 불만이 많음 -> right insight를 찾을 수 없었다.
+
+  Market intelligence팀과 functonal leaders간에 대화 통로를 만듦
+  올바른 데
+  cockpit : all the data in one room (control panel!)
+  champagne glass : long and narrow (low variance) prediction
+                    (predictive analytics)
+
+Predictive analytics의 예외!
+  Promotion
+  New Product
+
+위 둘을 제외하고는 다른 것들은 예측이 가능하다.
+
+
+
+5)
+Amazon Capex Strategy
+
+Retailer make money because of the ROS (return on sale)
+Nowadays, companies like Amazon, they don't make ROS.
+Their ROS level is quite low. (like 1%)
+
+What online retailers do is not a ROS game, but ROI game. (Return on Ivst)
+
+ROI = NOPAT * A/T
+
+Typical stores had lots of assets. (Very low asset turnovers)
+Amazon, they charge less. But their asset is small. So turnover is high.
+오프라인 상점들은 가격 경쟁에 참가해 NOPAT을 줄이지만 Asset은 줄일 수 없음.
+그래서 가격 경쟁에 밀리게 됨.
+So, investment to digital. But cannot get ahead of the game. That's why they're struggling.
+
+Then, why would Amazon buy WholeFoodsMarket?
+  2 major categories they are not effective
+  1) Food
+    Amazon Fresh를 통해 데이터를 얻은 결과, 사람들은 직접 음식을 보고나서 사고싶어함.
+    결국 매장이 필요하다!
+    홀푸즈는 Growth Investment to Capital management로의 전략이 필요했음.
+
+
+  2) Fashion
+    Inspirational. 고객을 단순히 만족시키기 힘들다. (기존의 방식으로)
+    Fashion Retailer들에게만 아주 좋은 거래 조건을 제시함.
+    반품도 1주일에 7개까지나 가능하게 해줌 -> ship a fitting room!
+
+*월마트 전담 팀만 16개가있다.
+
+Walmart는 Amazon을 보고 전략을 바꿈. Amazon에 반응하기 시작함.
+이 두 거인들이 싸우기 시작하기 때문에 다른 나머지 retailer들도 따라갈 수밖에 없음.
+-> 시장의 변화!
+
+What if Amazon comes into Korea?
+
+
+
+* Duoglass+ CBC
+
+6)
+sustainable value criteria
+
+User cases - customer centricity
+life-cycle
+tmeliness
+analytic profile
+
+
+7)
+Agile vs Taskforce? What is the difference?
+  Agile ; They are not trying to solve the big questions.
+          Focus on core, critical issues.
+  -> World is changing by day.
+
+
+8)
+Match the incentives
+Share paper templates -> Gather it!
+We don't really need a fancy infrastructure to accomplish it!
+Data tech tends to overspend.
+
+9)
+CISCO는 최대 steak houses
+
+10)
+Not How much money you'll chareg on the product?
+그냥 break evn으로 팔되 다른 것들을 같이 팔아라.
+
+11)
+Death Valley - 사람들은 처음구매한 제품을 최소 3번까지는 구매하지만, 4번째부터는 그 재구매율이 현저하게 떨어진다 = Death Valley!
+
+0)
+Use cases Life-Cycle Timeliness Analytic Profile!!
+
+Don't think of infrastructures!
+
+
+
+Q&A)
+Q. Why can't local retailers develop their own shopping system?
+A. They can. But they can't convince consumers they're right.
+Strong consumer advocacy -> 성공한 리테일러들의 특징
+
+Q.
+A.
+They used to have functional structures, now it's becoming obsolete. Each team used to have data team. But now we have to integrate them. = Dedicated data team
+
+If we have separat business team with separat TML, then we'll have separate data team.
+
+Q. Only focused on the performance or survival. But how the digitalization affect firms further? (in terms of sustainability)
+A.
+Sustainability - Economic, environmental, social
+The area that I find is that economic and social sustainability is the area it's applied. What we don't do is analyzing macro data(social context data).
+
+
+Q. Limitations to data collection of companies like P&G?
+A. There is a tool to track down their data. (Client not happy :()
+JBP(Joint Business Plan) - collaborate and make holistic view of the consumer behaviours
