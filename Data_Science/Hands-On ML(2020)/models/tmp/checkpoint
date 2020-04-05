@@ -1,0 +1,3 @@
+model_checkpoint_path: "chap11_exercise.ckpt"
+all_model_checkpoint_paths: "..\\chap11_exercise.ckpt"
+all_model_checkpoint_paths: "chap11_exercise.ckpt"
